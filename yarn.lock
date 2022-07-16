@@ -288,6 +288,11 @@
   resolved "https://registry.yarnpkg.com/@rescript/react/-/react-0.10.3.tgz#a2a8bed6b017940ec26c2154764b350f50348889"
   integrity sha512-Lf9rzrR3bQPKJjOK3PBRa/B3xrJ7CqQ1HYr9VHPVxJidarIJJFZBhj0Dg1uZURX+Wg/xiP0PHFxXmdj2bK8Vxw==
 
+"@rescriptbr/ancestor@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@rescriptbr/ancestor/-/ancestor-0.8.0.tgz#3ea4788470d4f2877156a14d684fb1fae518b131"
+  integrity sha512-RVQu9uP881Is/8Rp2PhGD2cunlUtaycdLOwQseri9HbRWxtVLIPmXIf9dj5i2cH3UG8kLXM43FeS4edZYZK/Uw==
+
 "@rushstack/eslint-patch@^1.1.3":
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.1.4.tgz#0c8b74c50f29ee44f423f7416829c0bf8bb5eb27"

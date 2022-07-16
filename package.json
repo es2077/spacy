@@ -16,6 +16,7 @@
     "@emotion/css": "11.9.0",
     "@emotion/server": "11.4.0",
     "@rescript/react": "0.10.3",
+    "@rescriptbr/ancestor": "0.8.0",
     "next": "12.2.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
