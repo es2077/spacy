@@ -4,7 +4,12 @@
   "reason": {
     "react-jsx": 3
   },
-  "bs-dependencies": ["@rescript/react", "@rescriptbr/ancestor", "rescript-js"],
+  "bs-dependencies": [
+    "@rescript/react",
+    "@rescriptbr/ancestor",
+    "rescript-js",
+    "rescript-next"
+  ],
   "ppx-flags": [],
   "sources": [
     {
