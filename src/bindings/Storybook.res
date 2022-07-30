@@ -6,8 +6,8 @@ module Control = {
     | Select
     | Text
     | Boolean
-    | Number({min: int, max: int, step: option<int>})
-    | Range({min: int, max: int, step: option<int>})
+    | Number({min: float, max: float, step: option<float>})
+    | Range({min: float, max: float, step: option<float>})
 
   let identity: _control => t = control =>
     switch control {
