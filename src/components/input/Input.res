@@ -1,4 +1,4 @@
-open Ancestor
+open AncestorSpacy
 
 module Styles = {
   open Emotion
@@ -40,7 +40,7 @@ module Styles = {
 
 @react.component
 let make = (~placeholder=?, ~onChange=?, ~type_=?, ~disabled=false, ~error: option<string>=?) => {
-  <Stack direction=[xs(#horizontal)] gap=[xs(#one(1))]>
+  <Stack direction=[xs(#horizontal)] gap=[xs(#one(1.0))]>
     <Base className={Styles.input(~error)} tag=#input ?placeholder ?onChange ?type_ disabled />
     {switch error {
     | None => React.null
