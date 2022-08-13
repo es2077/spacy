@@ -12,7 +12,7 @@ let make = (~title, ~description, ~cta=?) => {
       <Typography
         textAlign=[xs(#center)]
         m=[xs(0.0)]
-        color=[xs(Theme.Colors.primary700)]
+        color=[xs(#primary700)]
         tag=#h1
         fontSize=[xs(2.4->#rem)]
         fontWeight=[xs(#700)]
@@ -23,7 +23,7 @@ let make = (~title, ~description, ~cta=?) => {
       <Typography
         textAlign=[xs(#center)]
         m=[xs(0.0)]
-        color=[xs(Theme.Colors.primary200)]
+        color=[xs(#primary200)]
         tag=#p
         fontSize=[xs(1.8->#rem)]
         fontWeight=[xs(#500)]

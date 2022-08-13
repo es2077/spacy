@@ -12,25 +12,25 @@ module Styles = {
       "fontSize": `1.8rem`,
       "letterSpacing": `-0.02em`,
       "fontWeight": 500,
-      "backgroundColor": Polished.transparentize(0.92, Colors.primary600->Colors.toString),
+      "backgroundColor": Polished.transparentize(0.92, Colors.make(#primary600)),
       "border": 0,
       "outline": 0,
       "borderRadius": radius(0.5),
       "color": switch error {
-      | None => Colors.primary600->Colors.toString
-      | Some(_) => Colors.red->Colors.toString
+      | None => Colors.make(#primary600)
+      | Some(_) => Colors.make(#red)
       },
       "&:disabled": {
         "cursor": "not-allowed",
         "opacity": 0.7,
       },
       "::placeholder": {
-        "color": Colors.primary300->Colors.toString,
+        "color": Colors.make(#primary300),
       },
     })
 
   let error = css({
-    "color": Colors.red->Colors.toString,
+    "color": Colors.make(#red),
     "fontSize": `1.2rem`,
     "fontFamily": Constants.fontFamily,
     "fontWeight": 500,

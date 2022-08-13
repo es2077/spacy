@@ -18,7 +18,7 @@ let make = (~size: size=#lg, ~name) => {
     <Avatar size=avatarSize name />
     <Typography
       fontSize=[xs(fontSize)]
-      color=[xs(Theme.Colors.primary700)]
+      color=[xs(#primary700)]
       fontWeight=[xs(#700)]
       letterSpacing=[xs(-0.05->#em)]>
       {name->React.string}

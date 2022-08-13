@@ -1,15 +1,20 @@
 include Ancestor.Make({
-  type breakpoints<'value> = Ancestor.DefaultConfig.breakpoints<'value>
-  let unboxBreakpointValue = Ancestor.DefaultConfig.unboxBreakpointValue
-  let sizeByBreakpoints = Ancestor.DefaultConfig.sizeByBreakpoints
+  open Ancestor.DefaultConfig
+  type breakpoints<'value> = breakpoints<'value>
+  let unboxBreakpointValue = unboxBreakpointValue
+  let sizeByBreakpoints = sizeByBreakpoints
 
   let css = Emotion.rawCss
 
   type spacing = float
   type radius = float
+  type colors = Theme.Colors.t
+  type zIndex = Theme.ZIndex.t
 
-  let spacing = v => #pxFloat(v *. 8.0)
-  let radius = v => #pxFloat(v *. 8.0)
+  let spacing = Theme.Spacing.spacing
+  let radius = Theme.Radius.radius
+  let colors = Theme.Colors.color
+  let zIndex = Theme.ZIndex.make
 })
 
 let xs = v => #xs(v)
