@@ -30,18 +30,18 @@ module Styles = {
 
   let spinnerBg = (~color) =>
     css({
-      "stroke": color->Ancestor.Css.Color.toString,
+      "stroke": color->Theme.Colors.make,
       "opacity": 0.3,
     })
 
   let circle = (~color) =>
     css({
-      "stroke": color->Ancestor.Css.Color.toString,
+      "stroke": color->Theme.Colors.make,
       "animation": `${dash} 1.5s ease-in-out infinite`,
     })
 }
 @react.component
-let make = (~color=#hex("#000"), ~background=#hex("#cecece"), ~size=#rem(5.2)) => {
+let make = (~color=#primary700, ~background=#primary100, ~size=#rem(5.2)) => {
   <svg className={Styles.spinner(~size)} viewBox="0 0 50 50">
     <span />
     <circle
