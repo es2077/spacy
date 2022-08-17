@@ -14,7 +14,7 @@ include Ancestor.Make({
   let spacing = Theme.Spacing.spacing
   let radius = Theme.Radius.radius
   let colors = Theme.Colors.color
-  let zIndex = Theme.ZIndex.make
+  let zIndex = Theme.zIndex
 })
 
 let xs = v => #xs(v)

@@ -30,13 +30,13 @@ module Styles = {
 
   let spinnerBg = (~color) =>
     css({
-      "stroke": color->Theme.Colors.make,
+      "stroke": color->Theme.colors,
       "opacity": 0.3,
     })
 
   let circle = (~color) =>
     css({
-      "stroke": color->Theme.Colors.make,
+      "stroke": color->Theme.colors,
       "animation": `${dash} 1.5s ease-in-out infinite`,
     })
 }
