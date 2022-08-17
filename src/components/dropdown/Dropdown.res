@@ -18,25 +18,25 @@ module Styles = {
     "border": "none",
     "outline": "none",
     "background": "none",
-    "borderRadius": Theme.Radius.make(1.0),
-    "padding": `${Theme.Spacing.make(1.0)} ${Theme.Spacing.make(1.25)}`,
+    "borderRadius": Theme.radius(1.0),
+    "padding": `${Theme.spacing(1.0)} ${Theme.spacing(1.25)}`,
     "cursor": "pointer",
     "transition": "200ms background, 150ms box-shadow",
     "willChange": "background",
     "&:focus": {
       "transition": "150ms box-shadow",
-      "boxShadow": `0px 0px 0px 2px ${Theme.Colors.make(#primary200)}`,
+      "boxShadow": `0px 0px 0px 2px ${Theme.colors(#primary200)}`,
     },
     "&:hover": {
       "transition": "200ms background",
-      "background": Theme.Colors.make(#primary200)->Polished.transparentize(0.8, _),
+      "background": Theme.colors(#primary200)->Polished.transparentize(0.8, _),
     },
   })
 
   let content = css({
-    "border": `solid 1px ${Theme.Colors.make(#primary200)->Polished.transparentize(0.5, _)}`,
-    "borderRadius": Theme.Spacing.make(1.0),
-    "padding": Theme.Spacing.make(2.0),
+    "border": `solid 1px ${Theme.colors(#primary200)->Polished.transparentize(0.5, _)}`,
+    "borderRadius": Theme.spacing(1.0),
+    "padding": Theme.spacing(2.0),
     "display": "flex",
     "flexDirection": "column",
     "minWidth": 125,
@@ -50,7 +50,7 @@ module Styles = {
   })
 
   let item = css({
-    "padding": Theme.Spacing.make(1.0),
+    "padding": Theme.spacing(1.0),
     "textAlign": "center",
     "display": "flex",
     "alignItems": "center",
@@ -58,20 +58,20 @@ module Styles = {
     "fontSize": 16,
     "fontWeight": 700,
     "letterSpacing": `-0.02em`,
-    "borderRadius": Theme.Radius.make(0.5),
+    "borderRadius": Theme.radius(0.5),
     "cursor": "pointer",
     "transition": "200ms background, 150ms box-shadow",
     "willChange": "background",
     "outline": "none",
     "textDecoration": "none",
-    "color": Theme.Colors.make(#primary700),
+    "color": Theme.colors(#primary700),
     "&:focus": {
       "transition": "150ms box-shadow",
-      "boxShadow": `0px 0px 0px 2px ${Theme.Colors.make(#primary200)}`,
+      "boxShadow": `0px 0px 0px 2px ${Theme.colors(#primary200)}`,
     },
     "&:hover": {
       "transition": "200ms background",
-      "background": Theme.Colors.make(#primary200)->Polished.transparentize(0.8, _),
+      "background": Theme.colors(#primary200)->Polished.transparentize(0.8, _),
     },
   })
 }
