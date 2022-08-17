@@ -2,37 +2,36 @@ open AncestorSpacy
 
 module Styles = {
   open Emotion
-  open Theme
 
   let input = (~error) =>
     css({
       "height": 42,
-      "padding": `0 ${spacing(2.0)}`,
-      "fontFamily": Constants.fontFamily,
+      "padding": `0 ${Theme.spacing(2.0)}`,
+      "fontFamily": Theme.Constants.fontFamily,
       "fontSize": `1.8rem`,
       "letterSpacing": `-0.02em`,
       "fontWeight": 500,
-      "backgroundColor": Polished.transparentize(0.92, Colors.make(#primary600)),
+      "backgroundColor": Polished.transparentize(0.92, Theme.colors(#primary600)),
       "border": 0,
       "outline": 0,
-      "borderRadius": radius(0.5),
+      "borderRadius": Theme.radius(0.5),
       "color": switch error {
-      | None => Colors.make(#primary600)
-      | Some(_) => Colors.make(#red)
+      | None => Theme.colors(#primary600)
+      | Some(_) => Theme.colors(#red)
       },
       "&:disabled": {
         "cursor": "not-allowed",
         "opacity": 0.7,
       },
       "::placeholder": {
-        "color": Colors.make(#primary300),
+        "color": Theme.colors(#primary300),
       },
     })
 
   let error = css({
-    "color": Colors.make(#red),
+    "color": Theme.colors(#red),
     "fontSize": `1.2rem`,
-    "fontFamily": Constants.fontFamily,
+    "fontFamily": Theme.Constants.fontFamily,
     "fontWeight": 500,
     "letterSpacing": `-0.02em`,
   })

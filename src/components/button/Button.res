@@ -3,8 +3,6 @@ open AncestorSpacy
 type size = [#md | #lg]
 
 module Styles = {
-  open Theme
-
   let button = (~size: size, ~block) => {
     let transition = `200ms background-color, 150ms box-shadow`
     Emotion.css({
@@ -28,8 +26,8 @@ module Styles = {
       "fontFamily": Theme.Constants.fontFamily,
       "fontWeight": 700,
       "border": 0,
-      "color": Colors.make(#primary100),
-      "backgroundColor": Colors.make(#primary700),
+      "color": Theme.colors(#primary100),
+      "backgroundColor": Theme.colors(#primary700),
       "cursor": "pointer",
       "willChange": "background-color",
       "transition": transition,
@@ -39,7 +37,7 @@ module Styles = {
       "justifyContent": "center",
       "&:hover": {
         "transition": transition,
-        "backgroundColor": Colors.make(#primary500),
+        "backgroundColor": Theme.colors(#primary500),
       },
       "&:disabled": {
         "opacity": 0.3,
