@@ -17,6 +17,7 @@
     "@emotion/cache": "11.9.3",
     "@emotion/css": "11.9.0",
     "@emotion/server": "11.4.0",
+    "@radix-ui/react-dialog": "^1.0.0",
     "@radix-ui/react-popover": "1.0.0",
     "@rescript/react": "0.10.3",
     "@rescriptbr/ancestor": "1.0.0-2",
