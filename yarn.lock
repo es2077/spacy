@@ -1840,6 +1840,11 @@
   resolved "https://registry.yarnpkg.com/@rescriptbr/ancestor/-/ancestor-1.0.0-2.tgz#308e948f48bba5cab23420bcb972dd86368ba43f"
   integrity sha512-JfGv/ItPfkJczCYupUKHvb+/Bv91BfZoG7XhENUe8J4npca23aiRIgU1sbTks4n4V6dymFYJAZxV2gfFQ8I5MA==
 
+"@rescriptbr/radix-ui@1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@rescriptbr/radix-ui/-/radix-ui-1.1.3.tgz#53d5684b86fd014290187bdae440b2b0c8bc5369"
+  integrity sha512-kEoGMCiOmQ8CHgmnXII1IFIfRQS7zTnzHmbixTam1IwiWy+XxAhLJBicxD8sdSUcSHUKMAAEPYy6LJa8FtyXAw==
+
 "@rushstack/eslint-patch@^1.1.3":
   version "1.1.4"
   resolved "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.1.4.tgz"

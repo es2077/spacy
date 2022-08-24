@@ -84,7 +84,9 @@ module Item = {
 @react.component
 let make = (~trigger, ~children) => {
   <Popover.Root>
-    <Popover.Trigger className=Styles.trigger> trigger </Popover.Trigger>
+    <Popover.Trigger asChild=true>
+      <button className=Styles.trigger> trigger </button>
+    </Popover.Trigger>
     <Popover.Portal>
       <Popover.Content sideOffset=6 className=Styles.content> children </Popover.Content>
     </Popover.Portal>
