@@ -1669,7 +1669,7 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
 
-"@radix-ui/react-dialog@^1.0.0":
+"@radix-ui/react-dialog@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-dialog/-/react-dialog-1.0.0.tgz#997e97cb183bc90bd888b26b8e23a355ac9fe5f0"
   integrity sha512-Yn9YU+QlHYLWwV1XfKiqnGVpWYWk6MeBVM6x/bcoyPvxgjQGoeT35482viLPctTMWoMw0PoHgqfSox7Ig+957Q==
@@ -1856,10 +1856,10 @@
   resolved "https://registry.npmjs.org/@rescript/react/-/react-0.10.3.tgz"
   integrity sha512-Lf9rzrR3bQPKJjOK3PBRa/B3xrJ7CqQ1HYr9VHPVxJidarIJJFZBhj0Dg1uZURX+Wg/xiP0PHFxXmdj2bK8Vxw==
 
-"@rescriptbr/ancestor@1.0.0-2":
-  version "1.0.0-2"
-  resolved "https://registry.yarnpkg.com/@rescriptbr/ancestor/-/ancestor-1.0.0-2.tgz#308e948f48bba5cab23420bcb972dd86368ba43f"
-  integrity sha512-JfGv/ItPfkJczCYupUKHvb+/Bv91BfZoG7XhENUe8J4npca23aiRIgU1sbTks4n4V6dymFYJAZxV2gfFQ8I5MA==
+"@rescriptbr/ancestor@1.0.0-4":
+  version "1.0.0-4"
+  resolved "https://registry.yarnpkg.com/@rescriptbr/ancestor/-/ancestor-1.0.0-4.tgz#a1340cb3f63e63991c2c0b2c93d56ec564ecd7b9"
+  integrity sha512-7XZxzxzvfWeP463szmf6vUjRMm8cw13AckISYdjyss2QFiAd1MsX2iVBGdAVJ6GChqkKg5dTg6QFLKBlOWJwJQ==
 
 "@rescriptbr/radix-ui@1.1.3":
   version "1.1.3"
@@ -9729,10 +9729,10 @@ require-directory@^2.1.1:
   resolved "https://registry.npmjs.org/require-directory/-/require-directory-2.1.1.tgz"
   integrity sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==
 
-rescript-js@0.7.0:
-  version "0.7.0"
-  resolved "https://registry.npmjs.org/rescript-js/-/rescript-js-0.7.0.tgz"
-  integrity sha512-xX8qvHbxWthm3mNadD6JBtUmfdATlZURLM0VBUt03nkEAaqjNtevgMr008zhMtJKMzJT/Tc1QMP+tNXzBb7/1g==
+rescript-js@1.0.0-beta.2:
+  version "1.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/rescript-js/-/rescript-js-1.0.0-beta.2.tgz#f04a259396dde22178b43cebd1b3dbd3a4f94a60"
+  integrity sha512-eWq9ga4tnzXpED1IkDtmmkMBoUN2Vy4FPeZ9ge5ur0vHSolf7QhpnpGoPY0hkTXfwXQuFlPw5g2g5nWCEmIkVQ==
   dependencies:
     "@ryyppy/rescript-promise" "^2.1.0"
 
@@ -9741,10 +9741,10 @@ rescript-next@12.0.1:
   resolved "https://registry.npmjs.org/rescript-next/-/rescript-next-12.0.1.tgz"
   integrity sha512-QtT2dutO6upBSN9VaZ09bwmLybadFGcqbyGjAGsVMASkiYmk8j/xe5Ek1ZE6IZdRvL7kgidOSgvh//8CXGgkWA==
 
-rescript@9.1.4:
-  version "9.1.4"
-  resolved "https://registry.npmjs.org/rescript/-/rescript-9.1.4.tgz"
-  integrity sha512-aXANK4IqecJzdnDpJUsU6pxMViCR5ogAxzuqS0mOr8TloMnzAjJFu63fjD6LCkWrKAhlMkFFzQvVQYaAaVkFXw==
+rescript@10.1.0:
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/rescript/-/rescript-10.1.0.tgz#dfb7b862b25d74da9a8a3f90e1c7869cffd42b6e"
+  integrity sha512-85KLtBECo+hYwObbifXk5xpxUCUFMWgCR1w7hDDGhhXIXqEpHQ2ds6o++YPxzXjLuU1/qA7Iovq2zUX4opejQw==
 
 resolve-from@^4.0.0:
   version "4.0.0"
