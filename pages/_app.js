@@ -1,1 +1,2 @@
-export { default } from "../src/App.bs"
+import "./global.css";
+export { default } from "../src/App.bs";
