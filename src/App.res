@@ -9,5 +9,5 @@ type props = {
 let default = props => {
   let {component, pageProps} = props
 
-  {React.createElement(component, pageProps)}
+  <Layout> {React.createElement(component, pageProps)} </Layout>
 }

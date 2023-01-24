@@ -1,0 +1,16 @@
+* {
+  box-sizing: border-box;
+  font-family: DM Sans, sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+html,
+body,
+#__next {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
