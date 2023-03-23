@@ -9,9 +9,11 @@
     "@rescriptbr/ancestor",
     "@rescriptbr/radix-ui",
     "rescript-js",
-    "rescript-next"
+    "rescript-next",
+    "@rescriptbr/reform",
+    "@rescriptbr/reschema"
   ],
-  "ppx-flags": [],
+  "ppx-flags": ["lenses-ppx/ppx"],
   "sources": [
     {
       "dir": "src",
