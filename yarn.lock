@@ -1866,6 +1866,21 @@
   resolved "https://registry.yarnpkg.com/@rescriptbr/radix-ui/-/radix-ui-1.1.3.tgz#53d5684b86fd014290187bdae440b2b0c8bc5369"
   integrity sha512-kEoGMCiOmQ8CHgmnXII1IFIfRQS7zTnzHmbixTam1IwiWy+XxAhLJBicxD8sdSUcSHUKMAAEPYy6LJa8FtyXAw==
 
+"@rescriptbr/reform@12.1.0":
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/@rescriptbr/reform/-/reform-12.1.0.tgz#4c7fe7d62af2b5ef025b14e15173c6dd868e9852"
+  integrity sha512-YED9U4/EbKg9xTWg4VVuBRDqlRr+qgv26K1QaqGxEZKhlviRSMebR/xl/ehFLawlK3Tk6LdR6Uo/e6WLSiHJPw==
+  dependencies:
+    "@rescriptbr/reschema" "^3.0.3"
+    rescript-react-update "^3.0.1"
+
+"@rescriptbr/reschema@3.0.3", "@rescriptbr/reschema@^3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@rescriptbr/reschema/-/reschema-3.0.3.tgz#e75cdf6431fdd30e05ae192054b080f16f951e94"
+  integrity sha512-jNuXlSYuv/MxmrgkL+h8WR7NW0LiVRvzUZ2HgAec7qJ9dikAUUyaHdJ94n+/tsiTWA52oXcvkhPcJ8imjPU/sw==
+  dependencies:
+    rescript "^9.0.2"
+
 "@rushstack/eslint-patch@^1.1.3":
   version "1.1.4"
   resolved "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.1.4.tgz"
@@ -7621,6 +7636,11 @@ lazy-universal-dotenv@^3.0.1:
     dotenv "^8.0.0"
     dotenv-expand "^5.1.0"
 
+lenses-ppx@6.1.10:
+  version "6.1.10"
+  resolved "https://registry.yarnpkg.com/lenses-ppx/-/lenses-ppx-6.1.10.tgz#74b84a7c08191ff39c7f7e57d82c2b1d8a616a74"
+  integrity sha512-zN1RxPAvrKZtV7AqoUCjhSrS5NvjEg7isdde3G7eWUcVwcTzggM65mS1CuoVH5zgWB0JAF1VDmnli29DDQzbYQ==
+
 levn@^0.4.1:
   version "0.4.1"
   resolved "https://registry.npmjs.org/levn/-/levn-0.4.1.tgz"
@@ -9741,10 +9761,20 @@ rescript-next@12.0.1:
   resolved "https://registry.npmjs.org/rescript-next/-/rescript-next-12.0.1.tgz"
   integrity sha512-QtT2dutO6upBSN9VaZ09bwmLybadFGcqbyGjAGsVMASkiYmk8j/xe5Ek1ZE6IZdRvL7kgidOSgvh//8CXGgkWA==
 
+rescript-react-update@^3.0.1:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/rescript-react-update/-/rescript-react-update-3.0.2.tgz#8efece4c578110a35fdb1389d890a186dcdf03c6"
+  integrity sha512-oOOaeWma6XEhfZwlB/hB6u+UfYtuHjWS4RpoBeE8NbPX60GYLx5BLoVjEqLKoqXFPJv/2ZgghOKBn2LZo0VaJg==
+
 rescript@10.1.0:
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/rescript/-/rescript-10.1.0.tgz#dfb7b862b25d74da9a8a3f90e1c7869cffd42b6e"
   integrity sha512-85KLtBECo+hYwObbifXk5xpxUCUFMWgCR1w7hDDGhhXIXqEpHQ2ds6o++YPxzXjLuU1/qA7Iovq2zUX4opejQw==
+
+rescript@^9.0.2:
+  version "9.1.4"
+  resolved "https://registry.yarnpkg.com/rescript/-/rescript-9.1.4.tgz#1eb126f98d6c16942c0bf0df67c050198e580515"
+  integrity sha512-aXANK4IqecJzdnDpJUsU6pxMViCR5ogAxzuqS0mOr8TloMnzAjJFu63fjD6LCkWrKAhlMkFFzQvVQYaAaVkFXw==
 
 resolve-from@^4.0.0:
   version "4.0.0"
