@@ -1,1 +1,5 @@
-export { default } from "../src/pages/Home.bs"
+import HomePage from "../src/pages/home/Home.bs";
+
+export default function Home(props) {
+  return <HomePage {...props} />;
+}
