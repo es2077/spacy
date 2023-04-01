@@ -12,7 +12,13 @@ let default = () => {
         <Hero.Text />
       </Box>
       <Box maxW=[xs(178->#px)] width=[xs(100.0->#pct)]>
-        <Button block=true label={`Create account`} />
+        <Modal.Root>
+          <Modal.Trigger asChild=true>
+            <Button block=true label={`Create account`} />
+          </Modal.Trigger>
+          <Modal.Overlay />
+          <SignUpModal />
+        </Modal.Root>
       </Box>
     </Hero>
     <Stack gap=[xs(#one(8.0))] mt=[xs(14.0)] alignItems=[xs(#center)]>
