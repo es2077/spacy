@@ -7,5 +7,12 @@ let make = () =>
     justifyContent=[xs(#"space-between")]
     direction=[xs(#horizontal)]
     tag=#header>
-    <Logo /> <Button label=`Sign in` />
+    <Logo />
+    <Modal.Root>
+      <Modal.Trigger asChild=true>
+        <Button label={`Sign in`} />
+      </Modal.Trigger>
+      <Modal.Overlay />
+      <SignInModal />
+    </Modal.Root>
   </Stack>
