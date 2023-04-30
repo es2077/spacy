@@ -15,7 +15,15 @@ let default = () => {
         top=[xs(80->#px)]
         position=[xs(#absolute)]>
         <Button label="New article" />
-        <Typography fontSize=[xs(1.6->#rem)]> {"Edit profile"->s} </Typography>
+        <Modal.Root>
+          <Modal.Trigger asChild=true>
+            <Typography color=[xs(#primary700)] href="#" tag=#a fontSize=[xs(1.6->#rem)]>
+              {"Edit profile"->s}
+            </Typography>
+          </Modal.Trigger>
+          <Modal.Overlay />
+          <UpdateProfileModal />
+        </Modal.Root>
       </Stack>
       <Stack alignItems=[xs(#center)]>
         <Avatar name size=2.5 />
