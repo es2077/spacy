@@ -62,7 +62,7 @@ let make = () => {
           value={form.values.username}
           error=?{form.getFieldError(Field(Username))}
         />
-        <Input
+        <Textarea
           placeholder="Share a bio about you"
           onChange={handleChange(Bio)}
           value={form.values.bio}
