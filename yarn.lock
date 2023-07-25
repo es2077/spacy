@@ -1856,10 +1856,10 @@
   resolved "https://registry.yarnpkg.com/@rescript/react/-/react-0.11.0.tgz#d2545546d823bdb8e6b59daa1790098d1666f79e"
   integrity sha512-RzoAO+3cJwXE2D7yodMo4tBO2EkeDYCN/I/Sj/yRweI3S1CY1ZBOF/GMcVtjeIurJJt7KMveqQXTaRrqoGZBBg==
 
-"@rescriptbr/ancestor@1.0.0-4-rescript-11-compat.3-alpha":
-  version "1.0.0-4-rescript-11-compat.3-alpha"
-  resolved "https://registry.yarnpkg.com/@rescriptbr/ancestor/-/ancestor-1.0.0-4-rescript-11-compat.3-alpha.tgz#70ba863546c7b9496c81808fee4cfc5628b1cbe4"
-  integrity sha512-25MAeVxSaLoNGJtnxbJT9IFQIioipoWfjrrkTuJX2qMs5Myk6lX8Eq6WWHncbJ1SeVq8A346zYL3CNTOsX9SJw==
+"@rescriptbr/ancestor@1.0.0-4-rescript-11-compat.5-alpha":
+  version "1.0.0-4-rescript-11-compat.5-alpha"
+  resolved "https://registry.yarnpkg.com/@rescriptbr/ancestor/-/ancestor-1.0.0-4-rescript-11-compat.5-alpha.tgz#690d4c0db8a077b64aadd137c84233e8c95a0202"
+  integrity sha512-Joz4i4Hf5DXHAh4Sa0POEQL99lE9d7EultXuX5XDAc0Exv7p+M+haagz0TmsVopJtHyA1BOUo0cPEmNtBTNQrw==
 
 "@rescriptbr/radix-ui@1.1.3":
   version "1.1.3"
@@ -4313,6 +4313,11 @@ browserslist@^4.12.0, browserslist@^4.14.5, browserslist@^4.20.2, browserslist@^
     electron-to-chromium "^1.4.188"
     node-releases "^2.0.6"
     update-browserslist-db "^1.0.4"
+
+bs-fetch@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/bs-fetch/-/bs-fetch-0.6.2.tgz#37d982e9f79b9bc44c23e87ae78ccbee1f869adf"
+  integrity sha512-VXEjp8kY3vHPckaoy3d96Bx0KYjJAPLNISBwfpwMN26K6DtuZYwI2HKhx7zeHBajz1bRArfx7O8OOLcdtujMvg==
 
 bser@2.1.1:
   version "2.1.1"
@@ -9840,17 +9845,17 @@ rescript-react-update@^3.0.1:
   resolved "https://registry.yarnpkg.com/rescript-react-update/-/rescript-react-update-3.0.2.tgz#8efece4c578110a35fdb1389d890a186dcdf03c6"
   integrity sha512-oOOaeWma6XEhfZwlB/hB6u+UfYtuHjWS4RpoBeE8NbPX60GYLx5BLoVjEqLKoqXFPJv/2ZgghOKBn2LZo0VaJg==
 
-rescript-relay@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/rescript-relay/-/rescript-relay-2.0.0.tgz#74b91e34d1cb08560175b8214a1844407ff2b579"
-  integrity sha512-6OQ3pQETR7EBkjxf/i+IF0rhvCXrE6ruhXVRA4TaLDihX1wnmCRtmvKRQgr4sIvuARypRNIr0Z7lsNFdN/v8Ug==
+rescript-relay@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/rescript-relay/-/rescript-relay-1.1.1.tgz#d07d592d42b52adde8ce9124ecbeed68a9aa7e93"
+  integrity sha512-l+KHESdTOhxNbbBZfh1iXTFZQ1ofHsaKV6cdBRYrNlOuZ2jcdDGWUEKyFNsVBhzvS0TcP7rByPBKYVgPMpCm3w==
   dependencies:
     detect-libc "^2.0.1"
 
-rescript@11.0.0-beta.2:
-  version "11.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/rescript/-/rescript-11.0.0-beta.2.tgz#f8be07efcd4aa0f0ab2487e9bec12c0590985b65"
-  integrity sha512-Tcf72sR4EQ+eVMAwMWDSW5VPfg8YOS6bRJQ1Sf4u6jMy7Ui18mZyy0rusQmeq8vf2spgNulMcOw+HzQ9bEiz7g==
+rescript@^10.0.0:
+  version "10.1.4"
+  resolved "https://registry.yarnpkg.com/rescript/-/rescript-10.1.4.tgz#0f37710d371f32a704f17b4e804f66ce3c79a305"
+  integrity sha512-FFKlS9AG/XrLepWsyw7B+A9DtQBPWEPDPDKghV831Y2KGbie+eeFBOS0xtRHp0xbt7S0N2Dm6hhX+kTZQ/3Ybg==
 
 rescript@^9.0.2:
   version "9.1.4"
