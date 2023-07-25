@@ -1,0 +1,145 @@
+type Article {
+  id: ID!
+  slug: String!
+  title: String!
+  description: String!
+  body: String!
+  createdAt: String!
+  updatedAt: String!
+  tagList: [String!]!
+  author: Profile
+  comments: [Comment!]!
+  favorited: Boolean!
+  favoritesCount: Int!
+}
+
+type Profile {
+  username: String!
+  bio: String!
+  image: String!
+  following: Boolean!
+}
+
+type Comment {
+  id: ID!
+  body: String!
+  createdAt: String!
+  updatedAt: String!
+  author: Profile
+}
+
+type Query {
+  article(slug: String!): Article!
+  articles: ArticlesResponse!
+  articlesFeed(input: ArticlesFeedInput): ArticlesResponse!
+  profile(username: String!): Profile!
+  tags: String!
+  me: User!
+
+  """Fetches an object given its global ID."""
+  node(
+    """The global ID of the object."""
+    id: ID!
+  ): Node
+  nodes(
+    """The global IDs of the objects."""
+    ids: [ID!]!
+  ): [Node!]!
+}
+
+type ArticlesResponse {
+  edges: [Article!]!
+  articlesCount: Float!
+}
+
+input ArticlesFeedInput {
+  filter: ArticlesFeedFilterInput
+}
+
+input ArticlesFeedFilterInput {
+  author: String
+  tag: String
+  favorited: String
+  limit: Float
+  offset: Float
+}
+
+type User {
+  email: String!
+  username: String!
+  token: String
+  bio: String
+  image: String
+}
+
+"""An object with a global ID."""
+interface Node {
+  """The global ID of the object."""
+  id: ID!
+}
+
+type Mutation {
+  createArticle(input: CreateArticleInput!): Article!
+  updateArticle(input: UpdateArticleInput!): Article!
+  deleteArticle(slug: String!): ArticleDeleteResponse!
+  favoriteArticle(slug: String!): Article!
+  unfavoriteArticle(slug: String!): Article!
+  addCommentToAnArticle(input: AddCommentToAnArticleInput!): Comment!
+  deleteComment(input: DeleteCommentInput!): CommentDeleteResponse!
+  follow(userToFollow: String!): Profile!
+  unfollow(userToUnfollow: String!): Profile!
+  signUp(input: CreateUserInput!): User!
+  login(input: LoginInput!): User!
+  updateUser(input: UpdateUserInput!): User!
+}
+
+input CreateArticleInput {
+  title: String!
+  description: String!
+  body: String!
+  tagList: [String!]
+}
+
+input UpdateArticleInput {
+  slug: String!
+  title: String
+  description: String
+  body: String
+}
+
+type ArticleDeleteResponse {
+  success: Boolean!
+}
+
+input AddCommentToAnArticleInput {
+  body: String!
+  articleSlug: String!
+}
+
+type CommentDeleteResponse {
+  success: Boolean!
+}
+
+input DeleteCommentInput {
+  articleSlug: String!
+  id: ID!
+}
+
+input CreateUserInput {
+  username: String!
+  email: String!
+  password: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  email: String
+  username: String
+  bio: String
+  password: String
+  image: String
+}

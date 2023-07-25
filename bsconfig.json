@@ -1,6 +1,7 @@
 {
   "name": "spacy",
   "namespace": false,
+  "uncurried": true,
   "reason": {
     "react-jsx": 3
   },
@@ -8,12 +9,12 @@
     "@rescript/react",
     "@rescriptbr/ancestor",
     "@rescriptbr/radix-ui",
-    "rescript-js",
     "rescript-next",
     "@rescriptbr/reform",
-    "@rescriptbr/reschema"
+    "@rescriptbr/reschema",
+    "rescript-relay"
   ],
-  "ppx-flags": ["lenses-ppx/ppx"],
+  "ppx-flags": ["lenses-ppx/ppx", "rescript-relay/ppx"],
   "sources": [
     {
       "dir": "src",
@@ -28,5 +29,5 @@
     "error": "+8"
   },
   "suffix": ".bs.js",
-  "bsc-flags": ["-bs-g", "-bs-super-errors", "-open ReScriptJs.Js"]
+  "bsc-flags": ["-bs-g", "-bs-super-errors"]
 }
