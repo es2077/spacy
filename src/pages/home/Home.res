@@ -3,8 +3,17 @@ open Render
 
 module Hero = Home_Hero
 
+module Query = %relay(`
+  query HomeQuery {
+    me {
+      username
+    }
+  }
+`)
+
 let default = () => {
   let fakeArticles = [1, 2, 3, 4, 5, 6]
+  let queryData = Query.use(~variables=(), ())
   <Box p=[xs(4.0)]>
     <Hero>
       <Hero.Title />
@@ -12,13 +21,17 @@ let default = () => {
         <Hero.Text />
       </Box>
       <Box maxW=[xs(178->#px)] width=[xs(100.0->#pct)]>
-        <Modal.Root>
-          <Modal.Trigger asChild=true>
-            <Button block=true label={`Create account`} />
-          </Modal.Trigger>
-          <Modal.Overlay />
-          <SignUpModal />
-        </Modal.Root>
+        {switch queryData.me {
+        | Some(me) => <p> {React.string(`Hello ${me.username}`)} </p>
+        | None =>
+          <Modal.Root>
+            <Modal.Trigger asChild=true>
+              <Button block=true label={`Create account`} />
+            </Modal.Trigger>
+            <Modal.Overlay />
+            <SignUpModal />
+          </Modal.Root>
+        }}
       </Box>
     </Hero>
     <Stack gap=[xs(#one(8.0))] mt=[xs(14.0)] alignItems=[xs(#center)]>

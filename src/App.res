@@ -9,5 +9,7 @@ type props = {
 let default = props => {
   let {component, pageProps} = props
 
-  <Layout> {React.createElement(component, pageProps)} </Layout>
+  <RescriptRelay.Context.Provider environment=RelayEnv.environment>
+    <Layout> {React.createElement(component, pageProps)} </Layout>
+  </RescriptRelay.Context.Provider>
 }
