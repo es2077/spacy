@@ -1,3 +1,9 @@
 table:
   name: users
   schema: public
+configuration:
+  column_config: {}
+  custom_column_names: {}
+  custom_root_fields:
+    insert_one: sign_up
+    update_by_pk: update_profile
