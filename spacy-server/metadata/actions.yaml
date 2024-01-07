@@ -1,6 +1,18 @@
-actions: []
+actions:
+  - name: login
+    definition:
+      kind: synchronous
+      handler: '{{NEXT_SERVER_API}}/login'
+  - name: signUp
+    definition:
+      kind: synchronous
+      handler: '{{NEXT_SERVER_API}}/sign_up'
 custom_types:
   enums: []
-  input_objects: []
-  objects: []
+  input_objects:
+    - name: SignUpInput
+    - name: LoginInput
+  objects:
+    - name: SignUpResponse
+    - name: LoginResponse
   scalars: []

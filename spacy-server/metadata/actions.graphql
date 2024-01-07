@@ -1,0 +1,34 @@
+type Mutation {
+  login(
+    input: LoginInput!
+  ): LoginResponse
+}
+
+type Mutation {
+  signUp(
+    input: SignUpInput!
+  ): SignUpResponse!
+}
+
+input SignUpInput {
+  email: String!
+  password: String!
+  username: String!
+  bio: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type SignUpResponse {
+  error: String
+  token: String
+}
+
+type LoginResponse {
+  error: String
+  token: String
+}
+
