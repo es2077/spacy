@@ -1,0 +1,38 @@
+table:
+  name: users
+  schema: public
+configuration:
+  column_config: {}
+  custom_column_names: {}
+  custom_root_fields:
+    update_by_pk: update_profile
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - avatar_url
+        - bio
+        - created_at
+        - email
+        - id
+        - updated_at
+        - username
+      filter:
+        email:
+          _eq: X-Hasura-User-Email
+    comment: ""
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - avatar_url
+        - bio
+        - email
+        - password
+        - updated_at
+        - username
+      filter:
+        email:
+          _eq: X-Hasura-User-Email
+      check: null
+    comment: ""

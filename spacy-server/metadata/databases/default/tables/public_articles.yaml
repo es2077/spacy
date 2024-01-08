@@ -1,0 +1,45 @@
+table:
+  name: articles
+  schema: public
+insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - body
+        - intro
+        - created_at
+        - updated_at
+        - author_id
+        - id
+    comment: ""
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - body
+        - intro
+        - created_at
+        - updated_at
+        - author_id
+        - id
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - body
+        - created_at
+        - intro
+        - updated_at
+      filter: {}
+      check: null
+    comment: ""
+delete_permissions:
+  - role: user
+    permission:
+      filter:
+        author_id:
+          _eq: X-Hasura-User-Id
+    comment: ""
