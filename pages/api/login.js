@@ -42,11 +42,11 @@ export default async function (req, res) {
     } else {
       const token = jwt.sign(
         {
-          email: req.body.input.input.email,
+          email,
           "https://hasura.io/jwt/claims": {
             "x-hasura-allowed-roles": ["user"],
             "x-hasura-default-role": "user",
-            "x-hasura-user-id": result.data.usersConnection.edges[0].id,
+            "x-hasura-user-email": email,
           },
         },
         process.env.HASURA_SECRET,
@@ -55,6 +55,11 @@ export default async function (req, res) {
         }
       );
 
+      // set cookies
+      res.setHeader(
+        "Set-Cookie",
+        `spacy_auth=${token}; Secure; HttpOnly; Path=/;`
+      );
       res.status(200).json({
         token,
         error: null,

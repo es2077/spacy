@@ -17,7 +17,9 @@ select_permissions:
         - id
         - updated_at
         - username
-      filter: {}
+      filter:
+        email:
+          _eq: X-Hasura-User-Email
     comment: ""
 update_permissions:
   - role: user

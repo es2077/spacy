@@ -3,10 +3,16 @@ actions:
     definition:
       kind: synchronous
       handler: '{{NEXT_SERVER_API}}/login'
+    permissions:
+      - role: user
+      - role: anonymous
   - name: signUp
     definition:
       kind: synchronous
       handler: '{{NEXT_SERVER_API}}/sign_up'
+    permissions:
+      - role: user
+      - role: anonymous
 custom_types:
   enums: []
   input_objects:
