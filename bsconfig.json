@@ -11,9 +11,11 @@
     "rescript-js",
     "rescript-next",
     "@rescriptbr/reform",
-    "@rescriptbr/reschema"
+    "@rescriptbr/reschema",
+    "rescript-relay",
+    "bs-fetch"
   ],
-  "ppx-flags": ["lenses-ppx/ppx"],
+  "ppx-flags": ["lenses-ppx/ppx", "rescript-relay/ppx"],
   "sources": [
     {
       "dir": "src",
