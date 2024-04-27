@@ -5,15 +5,29 @@ module Hero = Home_Hero
 
 module Query = %relay(`
   query HomeQuery {
-    me {
-      username
+    usersConnection {
+      edges {
+        node {
+          id
+          username
+        }
+      }
     }
   }
 `)
 
+let getServerSideProps = context => {
+  context->RelaySSR.executeQueryEnvironment(environment => {
+    Query.fetchPromised(~environment, ~variables=(), ())
+  })
+}
+
 let default = () => {
   let fakeArticles = [1, 2, 3, 4, 5, 6]
+
   let queryData = Query.use(~variables=(), ())
+  Js.log(queryData)
+
   <Box p=[xs(4.0)]>
     <Hero>
       <Hero.Title />
@@ -21,8 +35,8 @@ let default = () => {
         <Hero.Text />
       </Box>
       <Box maxW=[xs(178->#px)] width=[xs(100.0->#pct)]>
-        {switch queryData.me {
-        | Some(me) => <p> {React.string(`Hello ${me.username}`)} </p>
+        {switch queryData.usersConnection.edges->Array.get(0) {
+        | Some({node: me}) => <p> {React.string(`Hello ${me.username}`)} </p>
         | None =>
           <Modal.Root>
             <Modal.Trigger asChild=true>

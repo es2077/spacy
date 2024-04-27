@@ -6,10 +6,14 @@ type props = {
   pageProps: pageProps,
 }
 
+let getDataFromPageProps = %raw(`function(pageProps) {
+  return pageProps.relayData
+}`)
+
 let default = props => {
   let {component, pageProps} = props
 
-  <RescriptRelay.Context.Provider environment=RelayEnv.environment>
+  <RelaySSR.Provider data={getDataFromPageProps(pageProps)}>
     <Layout> {React.createElement(component, pageProps)} </Layout>
-  </RescriptRelay.Context.Provider>
+  </RelaySSR.Provider>
 }

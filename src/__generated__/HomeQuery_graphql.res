@@ -4,11 +4,18 @@
 module Types = {
   @@ocaml.warning("-30")
 
-  type rec response_me = {
+  type rec response_usersConnection_edges_node = {
+    @live id: string,
     username: string,
   }
+  and response_usersConnection_edges = {
+    node: response_usersConnection_edges_node,
+  }
+  and response_usersConnection = {
+    edges: array<response_usersConnection_edges>,
+  }
   type response = {
-    me: option<response_me>,
+    usersConnection: response_usersConnection,
   }
   @live
   type rawResponse = response
@@ -85,16 +92,45 @@ var v0 = [
   {
     "alias": null,
     "args": null,
-    "concreteType": "User",
+    "concreteType": "UsersConnection",
     "kind": "LinkedField",
-    "name": "me",
+    "name": "usersConnection",
     "plural": false,
     "selections": [
       {
         "alias": null,
         "args": null,
-        "kind": "ScalarField",
-        "name": "username",
+        "concreteType": "UsersEdge",
+        "kind": "LinkedField",
+        "name": "edges",
+        "plural": true,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Users",
+            "kind": "LinkedField",
+            "name": "node",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "id",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "username",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
         "storageKey": null
       }
     ],
@@ -108,7 +144,7 @@ return {
     "metadata": null,
     "name": "HomeQuery",
     "selections": (v0/*: any*/),
-    "type": "Query",
+    "type": "query_root",
     "abstractKey": null
   },
   "kind": "Request",
@@ -119,12 +155,12 @@ return {
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "1f52a0107172c37b6b68658334bdf0df",
+    "cacheID": "d761bd956fa2e62a4248e11dcf48da79",
     "id": null,
     "metadata": {},
     "name": "HomeQuery",
     "operationKind": "query",
-    "text": "query HomeQuery {\n  me {\n    username\n  }\n}\n"
+    "text": "query HomeQuery {\n  usersConnection {\n    edges {\n      node {\n        id\n        username\n      }\n    }\n  }\n}\n"
   }
 };
 })() `)
