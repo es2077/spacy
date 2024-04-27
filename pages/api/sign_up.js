@@ -7,7 +7,7 @@ export default async function (req, res) {
       ...req.body.input.input,
       password: await bcrypt.hash(req.body.input.input.password, 10),
     };
-    const result = await fetch(process.env.NEXT_PUBLIC_HASURA_GRAPHQL_API, {
+    const result = await fetch(process.env.NEXT_HASURA_GRAPHQL_API, {
       method: "POST",
       headers: {
         "x-hasura-admin-secret": process.env.HASURA_ADMIN_SECRET,

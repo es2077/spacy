@@ -5,7 +5,7 @@ import cookie from "cookie";
 export default async function (req, res) {
   try {
     const { password, email } = req.body.input.input;
-    const result = await fetch(process.env.NEXT_PUBLIC_HASURA_GRAPHQL_API, {
+    const result = await fetch(process.env.NEXT_HASURA_GRAPHQL_API, {
       method: "POST",
       headers: {
         "x-hasura-admin-secret": process.env.HASURA_ADMIN_SECRET,
@@ -57,7 +57,6 @@ export default async function (req, res) {
       );
 
       const authCookie = cookie.serialize("spacy_auth", token, {
-        domain: "localhost", // Set domain to localhost
         path: "/",
         httpOnly: true,
         maxAge: 60 * 60 * 24 * 7, // 1 week
