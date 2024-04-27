@@ -16,6 +16,13 @@ yarn dev
 ```
 
 
+## Relay compiler
+Only necessary if you modify the queries
+
+```bash
+yarn relay
+```
+
 ## Running API Server
 
 Prerequisites
