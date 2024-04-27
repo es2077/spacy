@@ -7,7 +7,7 @@ export default async function (req, res) {
       ...req.body.input.input,
       password: await bcrypt.hash(req.body.input.input.password, 10),
     };
-    const result = await fetch(process.env.HASURA_GRAPHQL_API, {
+    const result = await fetch(process.env.NEXT_PUBLIC_HASURA_GRAPHQL_API, {
       method: "POST",
       headers: {
         "x-hasura-admin-secret": process.env.HASURA_ADMIN_SECRET,
@@ -26,6 +26,13 @@ export default async function (req, res) {
       }),
     }).then((res) => res.json());
 
+    if (result.errors) {
+      return res.status(200).json({
+        token: false,
+        error: result.errors[0].message,
+      });
+    }
+
     const token = jwt.sign(
       {
         email: req.body.input.input.email,
@@ -40,6 +47,8 @@ export default async function (req, res) {
         expiresIn: "7d",
       }
     );
+
+    res.setHeader("Set-Cookie", `spacy_auth=${token}; HttpOnly; Path=/`);
 
     res.status(200).json({
       token,

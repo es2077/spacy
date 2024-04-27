@@ -7,6 +7,20 @@ configuration:
   custom_root_fields:
     update_by_pk: update_profile
 select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+        - avatar_url
+        - bio
+        - created_at
+        - email
+        - id
+        - updated_at
+        - username
+      filter:
+        email:
+          _eq: "0"
+    comment: ""
   - role: user
     permission:
       columns:
