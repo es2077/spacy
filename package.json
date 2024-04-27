@@ -11,6 +11,7 @@
     "rescript:build": "rescript build",
     "rescript:clean": "rescript clean",
     "storybook": "start-storybook -s ./public -p 6006",
+    "graphql:download:schema": "npx get-graphql-schema http://localhost:8080/v1beta1/relay --header 'x-hasura-admin-secret=password' > schema.graphql",
     "build-storybook": "build-storybook"
   },
   "dependencies": {
