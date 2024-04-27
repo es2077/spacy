@@ -1,0 +1,735 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+"""whether this query should be cached (Hasura Cloud only)"""
+directive @cached(
+  """measured in seconds"""
+  ttl: Int! = 60
+
+  """refresh the cache entry"""
+  refresh: Boolean! = false
+) on QUERY
+
+"""
+columns and relationships of "articles"
+"""
+type Articles implements Node {
+  authorId: uuid!
+  body: String!
+  createdAt: timestamptz!
+  id: ID!
+  intro: String!
+  updatedAt: timestamptz!
+}
+
+"""
+Boolean expression to filter rows from the table "articles". All fields are combined with a logical 'AND'.
+"""
+input ArticlesBoolExp {
+  _and: [ArticlesBoolExp!]
+  _not: ArticlesBoolExp
+  _or: [ArticlesBoolExp!]
+  authorId: UuidComparisonExp
+  body: StringComparisonExp
+  createdAt: TimestamptzComparisonExp
+  id: UuidComparisonExp
+  intro: StringComparisonExp
+  updatedAt: TimestamptzComparisonExp
+}
+
+"""
+A Relay connection object on "articles"
+"""
+type ArticlesConnection {
+  edges: [ArticlesEdge!]!
+  pageInfo: PageInfo!
+}
+
+"""
+unique or primary key constraints on table "articles"
+"""
+enum ArticlesConstraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  articles_pkey
+}
+
+type ArticlesEdge {
+  cursor: String!
+  node: Articles!
+}
+
+"""
+input type for inserting data into table "articles"
+"""
+input ArticlesInsertInput {
+  authorId: uuid
+  body: String
+  createdAt: timestamptz
+  id: uuid
+  intro: String
+  updatedAt: timestamptz
+}
+
+"""
+response of any mutation on the table "articles"
+"""
+type ArticlesMutationResponse {
+  """number of rows affected by the mutation"""
+  affectedRows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [Articles!]!
+}
+
+"""
+on_conflict condition type for table "articles"
+"""
+input ArticlesOnConflict {
+  constraint: ArticlesConstraint!
+  updateColumns: [ArticlesUpdateColumn!]! = []
+  where: ArticlesBoolExp
+}
+
+"""Ordering options when selecting data from "articles"."""
+input ArticlesOrderBy {
+  authorId: OrderBy
+  body: OrderBy
+  createdAt: OrderBy
+  id: OrderBy
+  intro: OrderBy
+  updatedAt: OrderBy
+}
+
+"""primary key columns input for table: articles"""
+input ArticlesPkColumnsInput {
+  id: uuid!
+}
+
+"""
+select columns of table "articles"
+"""
+enum ArticlesSelectColumn {
+  """column name"""
+  authorId
+
+  """column name"""
+  body
+
+  """column name"""
+  createdAt
+
+  """column name"""
+  id
+
+  """column name"""
+  intro
+
+  """column name"""
+  updatedAt
+}
+
+"""
+input type for updating data in table "articles"
+"""
+input ArticlesSetInput {
+  authorId: uuid
+  body: String
+  createdAt: timestamptz
+  id: uuid
+  intro: String
+  updatedAt: timestamptz
+}
+
+"""
+update columns of table "articles"
+"""
+enum ArticlesUpdateColumn {
+  """column name"""
+  authorId
+
+  """column name"""
+  body
+
+  """column name"""
+  createdAt
+
+  """column name"""
+  id
+
+  """column name"""
+  intro
+
+  """column name"""
+  updatedAt
+}
+
+input ArticlesUpdates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: ArticlesSetInput
+
+  """filter the rows which have to be updated"""
+  where: ArticlesBoolExp!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type LoginResponse {
+  error: String
+  token: String
+}
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "articles"
+  """
+  deleteArticles(
+    """filter the rows which have to be deleted"""
+    where: ArticlesBoolExp!
+  ): ArticlesMutationResponse
+
+  """
+  delete single row from the table: "articles"
+  """
+  deleteArticlesByPk(id: uuid!): Articles
+
+  """
+  delete data from the table: "users"
+  """
+  deleteUsers(
+    """filter the rows which have to be deleted"""
+    where: UsersBoolExp!
+  ): UsersMutationResponse
+
+  """
+  delete single row from the table: "users"
+  """
+  deleteUsersByPk(id: uuid!): Users
+
+  """
+  insert data into the table: "articles"
+  """
+  insertArticles(
+    """the rows to be inserted"""
+    objects: [ArticlesInsertInput!]!
+
+    """upsert condition"""
+    onConflict: ArticlesOnConflict
+  ): ArticlesMutationResponse
+
+  """
+  insert a single row into the table: "articles"
+  """
+  insertArticlesOne(
+    """the row to be inserted"""
+    object: ArticlesInsertInput!
+
+    """upsert condition"""
+    onConflict: ArticlesOnConflict
+  ): Articles
+
+  """
+  insert data into the table: "users"
+  """
+  insertUsers(
+    """the rows to be inserted"""
+    objects: [UsersInsertInput!]!
+
+    """upsert condition"""
+    onConflict: UsersOnConflict
+  ): UsersMutationResponse
+
+  """
+  insert a single row into the table: "users"
+  """
+  insertUsersOne(
+    """the row to be inserted"""
+    object: UsersInsertInput!
+
+    """upsert condition"""
+    onConflict: UsersOnConflict
+  ): Users
+  login(input: LoginInput!): LoginResponse
+  signUp(input: SignUpInput!): SignUpResponse!
+
+  """
+  update data of the table: "articles"
+  """
+  updateArticles(
+    """sets the columns of the filtered rows to the given values"""
+    _set: ArticlesSetInput
+
+    """filter the rows which have to be updated"""
+    where: ArticlesBoolExp!
+  ): ArticlesMutationResponse
+
+  """
+  update single row of the table: "articles"
+  """
+  updateArticlesByPk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: ArticlesSetInput
+    pkColumns: ArticlesPkColumnsInput!
+  ): Articles
+
+  """
+  update multiples rows of table: "articles"
+  """
+  updateArticlesMany(
+    """updates to execute, in order"""
+    updates: [ArticlesUpdates!]!
+  ): [ArticlesMutationResponse]
+
+  """
+  update data of the table: "users"
+  """
+  updateUsers(
+    """sets the columns of the filtered rows to the given values"""
+    _set: UsersSetInput
+
+    """filter the rows which have to be updated"""
+    where: UsersBoolExp!
+  ): UsersMutationResponse
+
+  """
+  update multiples rows of table: "users"
+  """
+  updateUsersMany(
+    """updates to execute, in order"""
+    updates: [UsersUpdates!]!
+  ): [UsersMutationResponse]
+
+  """
+  update single row of the table: "users"
+  """
+  update_profile(
+    """sets the columns of the filtered rows to the given values"""
+    _set: UsersSetInput
+    pkColumns: UsersPkColumnsInput!
+  ): Users
+}
+
+"""An object with globally unique ID"""
+interface Node {
+  """A globally unique identifier"""
+  id: ID!
+}
+
+"""column ordering options"""
+enum OrderBy {
+  """in ascending order, nulls last"""
+  ASC
+
+  """in ascending order, nulls first"""
+  ASC_NULLS_FIRST
+
+  """in ascending order, nulls last"""
+  ASC_NULLS_LAST
+
+  """in descending order, nulls first"""
+  DESC
+
+  """in descending order, nulls first"""
+  DESC_NULLS_FIRST
+
+  """in descending order, nulls last"""
+  DESC_NULLS_LAST
+}
+
+type PageInfo {
+  endCursor: String!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String!
+}
+
+type query_root {
+  """
+  fetch data from the table: "articles"
+  """
+  articlesConnection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinctOn: [ArticlesSelectColumn!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [ArticlesOrderBy!]
+
+    """filter the rows returned"""
+    where: ArticlesBoolExp
+  ): ArticlesConnection!
+  node(
+    """A globally unique id"""
+    id: ID!
+  ): Node
+
+  """
+  fetch data from the table: "users"
+  """
+  usersConnection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinctOn: [UsersSelectColumn!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [UsersOrderBy!]
+
+    """filter the rows returned"""
+    where: UsersBoolExp
+  ): UsersConnection!
+}
+
+input SignUpInput {
+  bio: String!
+  email: String!
+  password: String!
+  username: String!
+}
+
+type SignUpResponse {
+  error: String
+  token: String
+}
+
+"""
+Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'.
+"""
+input StringComparisonExp {
+  _eq: String
+  _gt: String
+  _gte: String
+
+  """does the column match the given case-insensitive pattern"""
+  _ilike: String
+  _in: [String!]
+
+  """
+  does the column match the given POSIX regular expression, case insensitive
+  """
+  _iregex: String
+  _isNull: Boolean
+
+  """does the column match the given pattern"""
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+
+  """does the column NOT match the given case-insensitive pattern"""
+  _nilike: String
+  _nin: [String!]
+
+  """
+  does the column NOT match the given POSIX regular expression, case insensitive
+  """
+  _niregex: String
+
+  """does the column NOT match the given pattern"""
+  _nlike: String
+
+  """
+  does the column NOT match the given POSIX regular expression, case sensitive
+  """
+  _nregex: String
+
+  """does the column NOT match the given SQL regular expression"""
+  _nsimilar: String
+
+  """
+  does the column match the given POSIX regular expression, case sensitive
+  """
+  _regex: String
+
+  """does the column match the given SQL regular expression"""
+  _similar: String
+}
+
+type subscription_root {
+  """
+  fetch data from the table: "articles"
+  """
+  articlesConnection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinctOn: [ArticlesSelectColumn!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [ArticlesOrderBy!]
+
+    """filter the rows returned"""
+    where: ArticlesBoolExp
+  ): ArticlesConnection!
+  node(
+    """A globally unique id"""
+    id: ID!
+  ): Node
+
+  """
+  fetch data from the table: "users"
+  """
+  usersConnection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinctOn: [UsersSelectColumn!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [UsersOrderBy!]
+
+    """filter the rows returned"""
+    where: UsersBoolExp
+  ): UsersConnection!
+}
+
+scalar timestamptz
+
+"""
+Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'.
+"""
+input TimestamptzComparisonExp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz!]
+  _isNull: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz!]
+}
+
+"""
+columns and relationships of "users"
+"""
+type Users implements Node {
+  avatarUrl: String
+  bio: String!
+  createdAt: timestamptz!
+  email: String!
+  id: ID!
+  password: String!
+  updatedAt: timestamptz!
+  username: String!
+}
+
+"""
+Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'.
+"""
+input UsersBoolExp {
+  _and: [UsersBoolExp!]
+  _not: UsersBoolExp
+  _or: [UsersBoolExp!]
+  avatarUrl: StringComparisonExp
+  bio: StringComparisonExp
+  createdAt: TimestamptzComparisonExp
+  email: StringComparisonExp
+  id: UuidComparisonExp
+  password: StringComparisonExp
+  updatedAt: TimestamptzComparisonExp
+  username: StringComparisonExp
+}
+
+"""
+A Relay connection object on "users"
+"""
+type UsersConnection {
+  edges: [UsersEdge!]!
+  pageInfo: PageInfo!
+}
+
+"""
+unique or primary key constraints on table "users"
+"""
+enum UsersConstraint {
+  """
+  unique or primary key constraint on columns "email"
+  """
+  users_email_key
+
+  """
+  unique or primary key constraint on columns "id"
+  """
+  users_pkey
+
+  """
+  unique or primary key constraint on columns "username"
+  """
+  users_username_key
+}
+
+type UsersEdge {
+  cursor: String!
+  node: Users!
+}
+
+"""
+input type for inserting data into table "users"
+"""
+input UsersInsertInput {
+  avatarUrl: String
+  bio: String
+  createdAt: timestamptz
+  email: String
+  id: uuid
+  password: String
+  updatedAt: timestamptz
+  username: String
+}
+
+"""
+response of any mutation on the table "users"
+"""
+type UsersMutationResponse {
+  """number of rows affected by the mutation"""
+  affectedRows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [Users!]!
+}
+
+"""
+on_conflict condition type for table "users"
+"""
+input UsersOnConflict {
+  constraint: UsersConstraint!
+  updateColumns: [UsersUpdateColumn!]! = []
+  where: UsersBoolExp
+}
+
+"""Ordering options when selecting data from "users"."""
+input UsersOrderBy {
+  avatarUrl: OrderBy
+  bio: OrderBy
+  createdAt: OrderBy
+  email: OrderBy
+  id: OrderBy
+  password: OrderBy
+  updatedAt: OrderBy
+  username: OrderBy
+}
+
+"""primary key columns input for table: users"""
+input UsersPkColumnsInput {
+  id: uuid!
+}
+
+"""
+select columns of table "users"
+"""
+enum UsersSelectColumn {
+  """column name"""
+  avatarUrl
+
+  """column name"""
+  bio
+
+  """column name"""
+  createdAt
+
+  """column name"""
+  email
+
+  """column name"""
+  id
+
+  """column name"""
+  password
+
+  """column name"""
+  updatedAt
+
+  """column name"""
+  username
+}
+
+"""
+input type for updating data in table "users"
+"""
+input UsersSetInput {
+  avatarUrl: String
+  bio: String
+  createdAt: timestamptz
+  email: String
+  id: uuid
+  password: String
+  updatedAt: timestamptz
+  username: String
+}
+
+"""
+update columns of table "users"
+"""
+enum UsersUpdateColumn {
+  """column name"""
+  avatarUrl
+
+  """column name"""
+  bio
+
+  """column name"""
+  createdAt
+
+  """column name"""
+  email
+
+  """column name"""
+  id
+
+  """column name"""
+  password
+
+  """column name"""
+  updatedAt
+
+  """column name"""
+  username
+}
+
+input UsersUpdates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: UsersSetInput
+
+  """filter the rows which have to be updated"""
+  where: UsersBoolExp!
+}
+
+scalar uuid
+
+"""
+Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'.
+"""
+input UuidComparisonExp {
+  _eq: uuid
+  _gt: uuid
+  _gte: uuid
+  _in: [uuid!]
+  _isNull: Boolean
+  _lt: uuid
+  _lte: uuid
+  _neq: uuid
+  _nin: [uuid!]
+}
+
