@@ -25,7 +25,9 @@ let getServerSideProps = context => {
 let default = () => {
   let fakeArticles = [1, 2, 3, 4, 5, 6]
   let queryData = Query.use(~variables=(), ())
-  Js.log(queryData)
+  let (isSignUpModalOpen, setIsSignUpModalOpen) = React.useState(() => false)
+  let setIsSignUpModalOpen = value => setIsSignUpModalOpen(_ => value)
+  let closeSignUpModal = () => setIsSignUpModalOpen(false)
   <Box p=[xs(4.0)]>
     <Hero>
       <Hero.Title />
@@ -36,12 +38,12 @@ let default = () => {
         {switch queryData.usersConnection.edges->Array.get(0) {
         | Some({node: me}) => <p> {React.string(`Hello ${me.username}`)} </p>
         | _ =>
-          <Modal.Root>
+          <Modal.Root _open=isSignUpModalOpen onOpenChange=setIsSignUpModalOpen>
             <Modal.Trigger asChild=true>
               <Button block=true label={`Create account`} />
             </Modal.Trigger>
             <Modal.Overlay />
-            <SignUpModal />
+            <SignUpModal closeSignUpModal />
           </Modal.Root>
         }}
       </Box>

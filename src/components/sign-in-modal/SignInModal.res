@@ -1,5 +1,13 @@
 open AncestorSpacy
 
+module LoginMutation = %relay(`
+mutation SignInModalMutation($input: LoginInput!) {
+  login(input: $input) {
+    token
+  }
+}
+`)
+
 module FormFields = %lenses(
   type state = {
     email: string,
@@ -16,9 +24,21 @@ let formSchema = {
 }
 
 @react.component
-let make = () => {
+let make = (~closeSignInModal) => {
+  let (mutate, isMutating) = LoginMutation.use()
   let handleSubmit = (event: Form.onSubmitAPI) => {
-    Js.log(event.state)
+    mutate(
+      ~variables={
+        input: {
+          email: event.state.values.email,
+          password: event.state.values.password,
+        },
+      },
+      ~onCompleted=(response, mutationErrors) => {
+        closeSignInModal()
+      },
+      (),
+    )->RescriptRelay.Disposable.ignore
 
     None
   }
