@@ -58,7 +58,7 @@ let default = () => {
           color=[xs(#primary300)]
           lineHeight=[xs(2.8->#rem)]
           fontWeight=[xs(#400)]>
-          {"Frontend performance enthusiast and Fine-Grained Reactivity super fan. Author of the SolidJS UI library and MarkoJS Core Team Memberr"->s}
+          {"Frontend performance enthusiast and Fine-Grained Reactivity super fan. Author of the SolidJS UI library and MarkoJS Core Team Member"->s}
         </Typography>
       </Stack>
       <Stack gap=[xs(#one(8.0))] mt=[xs(14.0)] alignItems=[xs(#center)]>
