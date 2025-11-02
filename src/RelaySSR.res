@@ -19,7 +19,7 @@ let executeQueryEnvironment = (context: NextContext.t, transaction) => {
 module Provider = {
   @react.component
   let make = (~data, ~children) => {
-    let environment = React.useMemo(() => RelayEnv.make(~records=data, ()))
+    let environment = React.useMemo1(() => RelayEnv.make(~records=data, ()), [])
     <RescriptRelay.Context.Provider environment> children </RescriptRelay.Context.Provider>
   }
 }

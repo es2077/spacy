@@ -1,0 +1,7 @@
+# Ignore ReScript compiled files
+**/*.bs.js
+
+# Ignore build outputs
+.next/
+out/
+node_modules/
