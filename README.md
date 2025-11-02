@@ -39,3 +39,10 @@ docker compose up -d
 ```
 
 And that's it! You now have a Postgres + GraphQL API
+
+## Hasura
+Run the Hasura console through the CLI to get changes automatically saved to the config files
+
+```bash
+hasura console --endpoint http://localhost:8080 --admin-secret password
+```

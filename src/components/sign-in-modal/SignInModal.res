@@ -26,6 +26,7 @@ let formSchema = {
 @react.component
 let make = (~closeSignInModal) => {
   let (mutate, isMutating) = LoginMutation.use()
+  let environment = RescriptRelay.useEnvironmentFromContext()
   let handleSubmit = (event: Form.onSubmitAPI) => {
     mutate(
       ~variables={

@@ -186,137 +186,6 @@ type LoginResponse {
   token: String
 }
 
-"""mutation root"""
-type mutation_root {
-  """
-  delete data from the table: "articles"
-  """
-  deleteArticles(
-    """filter the rows which have to be deleted"""
-    where: ArticlesBoolExp!
-  ): ArticlesMutationResponse
-
-  """
-  delete single row from the table: "articles"
-  """
-  deleteArticlesByPk(id: uuid!): Articles
-
-  """
-  delete data from the table: "users"
-  """
-  deleteUsers(
-    """filter the rows which have to be deleted"""
-    where: UsersBoolExp!
-  ): UsersMutationResponse
-
-  """
-  delete single row from the table: "users"
-  """
-  deleteUsersByPk(id: uuid!): Users
-
-  """
-  insert data into the table: "articles"
-  """
-  insertArticles(
-    """the rows to be inserted"""
-    objects: [ArticlesInsertInput!]!
-
-    """upsert condition"""
-    onConflict: ArticlesOnConflict
-  ): ArticlesMutationResponse
-
-  """
-  insert a single row into the table: "articles"
-  """
-  insertArticlesOne(
-    """the row to be inserted"""
-    object: ArticlesInsertInput!
-
-    """upsert condition"""
-    onConflict: ArticlesOnConflict
-  ): Articles
-
-  """
-  insert data into the table: "users"
-  """
-  insertUsers(
-    """the rows to be inserted"""
-    objects: [UsersInsertInput!]!
-
-    """upsert condition"""
-    onConflict: UsersOnConflict
-  ): UsersMutationResponse
-
-  """
-  insert a single row into the table: "users"
-  """
-  insertUsersOne(
-    """the row to be inserted"""
-    object: UsersInsertInput!
-
-    """upsert condition"""
-    onConflict: UsersOnConflict
-  ): Users
-  login(input: LoginInput!): LoginResponse
-  signUp(input: SignUpInput!): SignUpResponse!
-
-  """
-  update data of the table: "articles"
-  """
-  updateArticles(
-    """sets the columns of the filtered rows to the given values"""
-    _set: ArticlesSetInput
-
-    """filter the rows which have to be updated"""
-    where: ArticlesBoolExp!
-  ): ArticlesMutationResponse
-
-  """
-  update single row of the table: "articles"
-  """
-  updateArticlesByPk(
-    """sets the columns of the filtered rows to the given values"""
-    _set: ArticlesSetInput
-    pkColumns: ArticlesPkColumnsInput!
-  ): Articles
-
-  """
-  update multiples rows of table: "articles"
-  """
-  updateArticlesMany(
-    """updates to execute, in order"""
-    updates: [ArticlesUpdates!]!
-  ): [ArticlesMutationResponse]
-
-  """
-  update data of the table: "users"
-  """
-  updateUsers(
-    """sets the columns of the filtered rows to the given values"""
-    _set: UsersSetInput
-
-    """filter the rows which have to be updated"""
-    where: UsersBoolExp!
-  ): UsersMutationResponse
-
-  """
-  update multiples rows of table: "users"
-  """
-  updateUsersMany(
-    """updates to execute, in order"""
-    updates: [UsersUpdates!]!
-  ): [UsersMutationResponse]
-
-  """
-  update single row of the table: "users"
-  """
-  update_profile(
-    """sets the columns of the filtered rows to the given values"""
-    _set: UsersSetInput
-    pkColumns: UsersPkColumnsInput!
-  ): Users
-}
-
 """An object with globally unique ID"""
 interface Node {
   """A globally unique identifier"""
@@ -349,50 +218,6 @@ type PageInfo {
   hasNextPage: Boolean!
   hasPreviousPage: Boolean!
   startCursor: String!
-}
-
-type query_root {
-  """
-  fetch data from the table: "articles"
-  """
-  articlesConnection(
-    after: String
-    before: String
-
-    """distinct select on columns"""
-    distinctOn: [ArticlesSelectColumn!]
-    first: Int
-    last: Int
-
-    """sort the rows by one or more columns"""
-    orderBy: [ArticlesOrderBy!]
-
-    """filter the rows returned"""
-    where: ArticlesBoolExp
-  ): ArticlesConnection!
-  node(
-    """A globally unique id"""
-    id: ID!
-  ): Node
-
-  """
-  fetch data from the table: "users"
-  """
-  usersConnection(
-    after: String
-    before: String
-
-    """distinct select on columns"""
-    distinctOn: [UsersSelectColumn!]
-    first: Int
-    last: Int
-
-    """sort the rows by one or more columns"""
-    orderBy: [UsersOrderBy!]
-
-    """filter the rows returned"""
-    where: UsersBoolExp
-  ): UsersConnection!
 }
 
 input SignUpInput {
@@ -459,52 +284,6 @@ input StringComparisonExp {
   """does the column match the given SQL regular expression"""
   _similar: String
 }
-
-type subscription_root {
-  """
-  fetch data from the table: "articles"
-  """
-  articlesConnection(
-    after: String
-    before: String
-
-    """distinct select on columns"""
-    distinctOn: [ArticlesSelectColumn!]
-    first: Int
-    last: Int
-
-    """sort the rows by one or more columns"""
-    orderBy: [ArticlesOrderBy!]
-
-    """filter the rows returned"""
-    where: ArticlesBoolExp
-  ): ArticlesConnection!
-  node(
-    """A globally unique id"""
-    id: ID!
-  ): Node
-
-  """
-  fetch data from the table: "users"
-  """
-  usersConnection(
-    after: String
-    before: String
-
-    """distinct select on columns"""
-    distinctOn: [UsersSelectColumn!]
-    first: Int
-    last: Int
-
-    """sort the rows by one or more columns"""
-    orderBy: [UsersOrderBy!]
-
-    """filter the rows returned"""
-    where: UsersBoolExp
-  ): UsersConnection!
-}
-
-scalar timestamptz
 
 """
 Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'.
@@ -716,8 +495,6 @@ input UsersUpdates {
   where: UsersBoolExp!
 }
 
-scalar uuid
-
 """
 Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'.
 """
@@ -732,4 +509,227 @@ input UuidComparisonExp {
   _neq: uuid
   _nin: [uuid!]
 }
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "articles"
+  """
+  deleteArticles(
+    """filter the rows which have to be deleted"""
+    where: ArticlesBoolExp!
+  ): ArticlesMutationResponse
+
+  """
+  delete single row from the table: "articles"
+  """
+  deleteArticlesByPk(id: uuid!): Articles
+
+  """
+  delete data from the table: "users"
+  """
+  deleteUsers(
+    """filter the rows which have to be deleted"""
+    where: UsersBoolExp!
+  ): UsersMutationResponse
+
+  """
+  delete single row from the table: "users"
+  """
+  deleteUsersByPk(id: uuid!): Users
+
+  """
+  insert data into the table: "articles"
+  """
+  insertArticles(
+    """the rows to be inserted"""
+    objects: [ArticlesInsertInput!]!
+
+    """upsert condition"""
+    onConflict: ArticlesOnConflict
+  ): ArticlesMutationResponse
+
+  """
+  insert a single row into the table: "articles"
+  """
+  insertArticlesOne(
+    """the row to be inserted"""
+    object: ArticlesInsertInput!
+
+    """upsert condition"""
+    onConflict: ArticlesOnConflict
+  ): Articles
+
+  """
+  insert data into the table: "users"
+  """
+  insertUsers(
+    """the rows to be inserted"""
+    objects: [UsersInsertInput!]!
+
+    """upsert condition"""
+    onConflict: UsersOnConflict
+  ): UsersMutationResponse
+
+  """
+  insert a single row into the table: "users"
+  """
+  insertUsersOne(
+    """the row to be inserted"""
+    object: UsersInsertInput!
+
+    """upsert condition"""
+    onConflict: UsersOnConflict
+  ): Users
+  login(input: LoginInput!): LoginResponse
+  signUp(input: SignUpInput!): SignUpResponse!
+
+  """
+  update data of the table: "articles"
+  """
+  updateArticles(
+    """sets the columns of the filtered rows to the given values"""
+    _set: ArticlesSetInput
+
+    """filter the rows which have to be updated"""
+    where: ArticlesBoolExp!
+  ): ArticlesMutationResponse
+
+  """
+  update single row of the table: "articles"
+  """
+  updateArticlesByPk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: ArticlesSetInput
+    pkColumns: ArticlesPkColumnsInput!
+  ): Articles
+
+  """
+  update multiples rows of table: "articles"
+  """
+  updateArticlesMany(
+    """updates to execute, in order"""
+    updates: [ArticlesUpdates!]!
+  ): [ArticlesMutationResponse]
+
+  """
+  update data of the table: "users"
+  """
+  updateUsers(
+    """sets the columns of the filtered rows to the given values"""
+    _set: UsersSetInput
+
+    """filter the rows which have to be updated"""
+    where: UsersBoolExp!
+  ): UsersMutationResponse
+
+  """
+  update multiples rows of table: "users"
+  """
+  updateUsersMany(
+    """updates to execute, in order"""
+    updates: [UsersUpdates!]!
+  ): [UsersMutationResponse]
+
+  """
+  update single row of the table: "users"
+  """
+  update_profile(
+    """sets the columns of the filtered rows to the given values"""
+    _set: UsersSetInput
+    pkColumns: UsersPkColumnsInput!
+  ): Users
+}
+
+type query_root {
+  """
+  fetch data from the table: "articles"
+  """
+  articlesConnection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinctOn: [ArticlesSelectColumn!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [ArticlesOrderBy!]
+
+    """filter the rows returned"""
+    where: ArticlesBoolExp
+  ): ArticlesConnection!
+  node(
+    """A globally unique id"""
+    id: ID!
+  ): Node
+
+  """
+  fetch data from the table: "users"
+  """
+  usersConnection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinctOn: [UsersSelectColumn!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [UsersOrderBy!]
+
+    """filter the rows returned"""
+    where: UsersBoolExp
+  ): UsersConnection!
+}
+
+type subscription_root {
+  """
+  fetch data from the table: "articles"
+  """
+  articlesConnection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinctOn: [ArticlesSelectColumn!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [ArticlesOrderBy!]
+
+    """filter the rows returned"""
+    where: ArticlesBoolExp
+  ): ArticlesConnection!
+  node(
+    """A globally unique id"""
+    id: ID!
+  ): Node
+
+  """
+  fetch data from the table: "users"
+  """
+  usersConnection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinctOn: [UsersSelectColumn!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [UsersOrderBy!]
+
+    """filter the rows returned"""
+    where: UsersBoolExp
+  ): UsersConnection!
+}
+
+scalar timestamptz
+
+scalar uuid
 

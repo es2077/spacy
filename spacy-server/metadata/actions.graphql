@@ -4,6 +4,10 @@ type Mutation {
   ): LoginResponse
 }
 
+type Query {
+  me: User
+}
+
 type Mutation {
   signUp(
     input: SignUpInput!
@@ -30,5 +34,15 @@ type SignUpResponse {
 type LoginResponse {
   error: String
   token: String
+}
+
+type User {
+  id: uuid!
+  email: String!
+  username: String!
+  bio: String
+  avatarUrl: String
+  createdAt: timestamptz!
+  updatedAt: timestamptz!
 }
 

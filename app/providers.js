@@ -3,7 +3,7 @@
 import { createElement } from "react";
 import { Context } from "rescript-relay/src/RescriptRelay.bs.js";
 import { make as makeRelayEnvironment } from "../src/RelayEnv.bs";
-import { make as Layout } from "../src/components/layout/Layout.bs";
+import { AppWrapper } from "./app-wrapper";
 
 // Create a singleton Relay environment that persists across renders
 let clientEnvironment;
@@ -28,6 +28,6 @@ export function Providers({ authToken, children }) {
   return createElement(
     Context.Provider.make,
     { environment },
-    createElement(Layout, {}, children)
+    createElement(AppWrapper, {}, children)
   );
 }

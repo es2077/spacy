@@ -6,6 +6,13 @@ actions:
     permissions:
       - role: user
       - role: anonymous
+  - name: me
+    definition:
+      kind: ""
+      handler: '{{NEXT_SERVER_API}}/me'
+      forward_client_headers: true
+    permissions:
+      - role: user
   - name: signUp
     definition:
       kind: synchronous
@@ -21,4 +28,5 @@ custom_types:
   objects:
     - name: SignUpResponse
     - name: LoginResponse
+    - name: User
   scalars: []

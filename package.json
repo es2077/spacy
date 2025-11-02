@@ -13,7 +13,7 @@
     "res:build": "rescript build",
     "res:clean": "rescript clean",
     "storybook": "start-storybook -s ./public -p 6006",
-    "graphql:download:schema": "npx get-graphql-schema http://localhost:8080/v1beta1/relay --header 'x-hasura-admin-secret=password' > schema.graphql",
+    "graphql:download:schema": "gq http://localhost:8080/v1beta1/relay -H 'x-hasura-admin-secret: password' --introspect > schema.graphql",
     "build-storybook": "build-storybook"
   },
   "dependencies": {
@@ -29,8 +29,8 @@
     "@rescriptbr/reform": "12.1.0",
     "@rescriptbr/reschema": "3.0.3",
     "bcrypt": "^5.1.1",
-    "jsonwebtoken": "^9.0.2",
     "bs-fetch": "0.6.2",
+    "jsonwebtoken": "^9.0.2",
     "next": "13.4.19",
     "polished": "4.2.2",
     "react": "^18.2.0",
@@ -58,6 +58,7 @@
     "babel-loader": "^8.2.5",
     "eslint": "8.19.0",
     "eslint-config-next": "13.4.19",
+    "graphqurl": "^2.0.0",
     "lenses-ppx": "6.1.10"
   }
 }
