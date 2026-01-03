@@ -11,7 +11,7 @@ let make = (~children, ~user) => {
     <Stack
       gap=[xs(#one(4.0))] maxW=[xs(1200->#px)] width=[xs(100.0->#pct)] height=[xs(100.0->#pct)]>
       {switch user {
-      | Some(user) => <Header.WithUser user />
+      | Some(_) => <Header.WithUser />
       | None => <Header.WithoutUser />
       }}
       <Box display=[xs(#flex)] justifyContent=[xs(#center)] flexGrow=[xs(3.0->#num)]>
