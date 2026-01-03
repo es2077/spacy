@@ -3,9 +3,9 @@ open Render
 
 module Hero = Home_Hero
 
-module Query = %relay(`
-query HomeQuery {
-  usersConnection {
+module UserQuery = %relay(`
+query HomeUserQuery {
+  usersConnection(first: 1) {
     edges {
       node {
         id
@@ -16,18 +16,13 @@ query HomeQuery {
 }
 `)
 
-let getServerSideProps = context => {
-  context->RelaySSR.executeQueryEnvironment(environment => {
-    Query.fetchPromised(~environment, ~variables=(), ())
-  })
-}
-
 let default = () => {
   let fakeArticles = [1, 2, 3, 4, 5, 6]
-  let queryData = Query.use(~variables=(), ())
+  let queryData = UserQuery.use(~variables=(), ())
   let (isSignUpModalOpen, setIsSignUpModalOpen) = React.useState(() => false)
   let setIsSignUpModalOpen = value => setIsSignUpModalOpen(_ => value)
   let closeSignUpModal = () => setIsSignUpModalOpen(false)
+
   <Box p=[xs(4.0)]>
     <Hero>
       <Hero.Title />
