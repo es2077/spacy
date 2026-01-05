@@ -62,7 +62,32 @@ let make = () => {
   let user = queryData.usersConnection.edges[0]
 
   let handleSubmit = (event: Form.onSubmitAPI) => {
-    Js.log(event.state)
+    let slug = createSlug(event.state.values.title)
+
+    mutate(
+      ~variables={
+        input: {
+          title: Some(event.state.values.title),
+          intro: Some(event.state.values.short),
+          body: Some(event.state.values.content),
+          slug: Some(slug),
+          authorId: None,
+          createdAt: None,
+          id: None,
+          updatedAt: None,
+          user: None
+        },
+      },
+      ~onCompleted=(response, _errors) => {
+        switch response.insertArticlesOne {
+        | Some(article) =>
+          // Navigate to the article page
+          Js.log2("Article created with slug:", article.slug)
+        | None => Js.log("Failed to create article")
+        }
+      },
+      (),
+    )->RescriptRelay.Disposable.ignore
 
     None
   }
