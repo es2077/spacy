@@ -6,26 +6,33 @@ import { useServerInsertedHTML } from 'next/navigation';
 import { useState } from 'react';
 
 export default function EmotionRegistry({ children }) {
-  const [cache] = useState(() => {
+  const [{ cache, flush }] = useState(() => {
     const cache = createCache({ key: 'css' });
     cache.compat = true;
-    return cache;
+    const prevInsert = cache.insert;
+    let inserted = [];
+    cache.insert = (...args) => {
+      const serialized = args[1];
+      if (cache.inserted[serialized.name] === undefined) {
+        inserted.push(serialized.name);
+      }
+      return prevInsert(...args);
+    };
+    const flush = () => {
+      const prevInserted = inserted;
+      inserted = [];
+      return prevInserted;
+    };
+    return { cache, flush };
   });
 
   useServerInsertedHTML(() => {
-    const names = Object.keys(cache.inserted);
+    const names = flush();
     if (names.length === 0) return null;
-
     let styles = '';
     for (const name of names) {
-      const value = cache.inserted[name];
-      if (typeof value === 'string') {
-        styles += value;
-      }
+      styles += cache.inserted[name];
     }
-
-    // Don't clear cache to avoid hydration mismatch
-
     return (
       <style
         data-emotion={`${cache.key} ${names.join(' ')}`}

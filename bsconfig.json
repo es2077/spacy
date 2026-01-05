@@ -20,6 +20,10 @@
     {
       "dir": "src",
       "subdirs": true
+    },
+    {
+      "dir": "app",
+      "subdirs": false
     }
   ],
   "package-specs": {

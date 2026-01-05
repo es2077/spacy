@@ -22,6 +22,8 @@ type Articles implements Node {
   createdAt: timestamptz!
   id: ID!
   intro: String!
+  slug: String!
+  title: String!
   updatedAt: timestamptz!
 }
 
@@ -37,6 +39,8 @@ input ArticlesBoolExp {
   createdAt: TimestamptzComparisonExp
   id: UuidComparisonExp
   intro: StringComparisonExp
+  slug: StringComparisonExp
+  title: StringComparisonExp
   updatedAt: TimestamptzComparisonExp
 }
 
@@ -56,6 +60,11 @@ enum ArticlesConstraint {
   unique or primary key constraint on columns "id"
   """
   articles_pkey
+
+  """
+  unique or primary key constraint on columns "slug"
+  """
+  articles_slug_key
 }
 
 type ArticlesEdge {
@@ -72,6 +81,8 @@ input ArticlesInsertInput {
   createdAt: timestamptz
   id: uuid
   intro: String
+  slug: String
+  title: String
   updatedAt: timestamptz
 }
 
@@ -102,6 +113,8 @@ input ArticlesOrderBy {
   createdAt: OrderBy
   id: OrderBy
   intro: OrderBy
+  slug: OrderBy
+  title: OrderBy
   updatedAt: OrderBy
 }
 
@@ -130,6 +143,12 @@ enum ArticlesSelectColumn {
   intro
 
   """column name"""
+  slug
+
+  """column name"""
+  title
+
+  """column name"""
   updatedAt
 }
 
@@ -142,6 +161,8 @@ input ArticlesSetInput {
   createdAt: timestamptz
   id: uuid
   intro: String
+  slug: String
+  title: String
   updatedAt: timestamptz
 }
 
@@ -163,6 +184,12 @@ enum ArticlesUpdateColumn {
 
   """column name"""
   intro
+
+  """column name"""
+  slug
+
+  """column name"""
+  title
 
   """column name"""
   updatedAt

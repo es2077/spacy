@@ -4,11 +4,13 @@
 @live
 type enum_ArticlesConstraint = private [>
   | #articles_pkey
+  | #articles_slug_key
 ]
 
 @live
 type enum_ArticlesConstraint_input = [
   | #articles_pkey
+  | #articles_slug_key
 ]
 
 @live
@@ -18,6 +20,8 @@ type enum_ArticlesSelectColumn = private [>
   | #createdAt
   | #id
   | #intro
+  | #slug
+  | #title
   | #updatedAt
 ]
 
@@ -28,6 +32,8 @@ type enum_ArticlesSelectColumn_input = [
   | #createdAt
   | #id
   | #intro
+  | #slug
+  | #title
   | #updatedAt
 ]
 
@@ -38,6 +44,8 @@ type enum_ArticlesUpdateColumn = private [>
   | #createdAt
   | #id
   | #intro
+  | #slug
+  | #title
   | #updatedAt
 ]
 
@@ -48,6 +56,8 @@ type enum_ArticlesUpdateColumn_input = [
   | #createdAt
   | #id
   | #intro
+  | #slug
+  | #title
   | #updatedAt
 ]
 
@@ -157,6 +167,8 @@ type rec input_ArticlesBoolExp = {
   createdAt: option<input_TimestamptzComparisonExp>,
   id: option<input_UuidComparisonExp>,
   intro: option<input_StringComparisonExp>,
+  slug: option<input_StringComparisonExp>,
+  title: option<input_StringComparisonExp>,
   updatedAt: option<input_TimestamptzComparisonExp>,
 }
 
@@ -170,6 +182,8 @@ and input_ArticlesBoolExp_nullable = {
   createdAt?: Js.Null.t<input_TimestamptzComparisonExp_nullable>,
   id?: Js.Null.t<input_UuidComparisonExp_nullable>,
   intro?: Js.Null.t<input_StringComparisonExp_nullable>,
+  slug?: Js.Null.t<input_StringComparisonExp_nullable>,
+  title?: Js.Null.t<input_StringComparisonExp_nullable>,
   updatedAt?: Js.Null.t<input_TimestamptzComparisonExp_nullable>,
 }
 
@@ -180,6 +194,8 @@ and input_ArticlesInsertInput = {
   createdAt: option<RescriptRelay.any>,
   id: option<RescriptRelay.any>,
   intro: option<string>,
+  slug: option<string>,
+  title: option<string>,
   updatedAt: option<RescriptRelay.any>,
 }
 
@@ -190,20 +206,22 @@ and input_ArticlesInsertInput_nullable = {
   createdAt?: Js.Null.t<RescriptRelay.any>,
   id?: Js.Null.t<RescriptRelay.any>,
   intro?: Js.Null.t<string>,
+  slug?: Js.Null.t<string>,
+  title?: Js.Null.t<string>,
   updatedAt?: Js.Null.t<RescriptRelay.any>,
 }
 
 @live
 and input_ArticlesOnConflict = {
-  @as("constraint") constraint_: [#articles_pkey],
-  updateColumns: array<[#authorId | #body | #createdAt | #id | #intro | #updatedAt]>,
+  @as("constraint") constraint_: [#articles_pkey | #articles_slug_key],
+  updateColumns: array<[#authorId | #body | #createdAt | #id | #intro | #slug | #title | #updatedAt]>,
   where: option<input_ArticlesBoolExp>,
 }
 
 @live
 and input_ArticlesOnConflict_nullable = {
-  @as("constraint") constraint_: [#articles_pkey],
-  updateColumns: array<[#authorId | #body | #createdAt | #id | #intro | #updatedAt]>,
+  @as("constraint") constraint_: [#articles_pkey | #articles_slug_key],
+  updateColumns: array<[#authorId | #body | #createdAt | #id | #intro | #slug | #title | #updatedAt]>,
   where?: Js.Null.t<input_ArticlesBoolExp_nullable>,
 }
 
@@ -214,6 +232,8 @@ and input_ArticlesOrderBy = {
   createdAt: option<[#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]>,
   id: option<[#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]>,
   intro: option<[#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]>,
+  slug: option<[#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]>,
+  title: option<[#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]>,
   updatedAt: option<[#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]>,
 }
 
@@ -224,6 +244,8 @@ and input_ArticlesOrderBy_nullable = {
   createdAt?: Js.Null.t<[#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]>,
   id?: Js.Null.t<[#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]>,
   intro?: Js.Null.t<[#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]>,
+  slug?: Js.Null.t<[#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]>,
+  title?: Js.Null.t<[#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]>,
   updatedAt?: Js.Null.t<[#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]>,
 }
 
@@ -244,6 +266,8 @@ and input_ArticlesSetInput = {
   createdAt: option<RescriptRelay.any>,
   id: option<RescriptRelay.any>,
   intro: option<string>,
+  slug: option<string>,
+  title: option<string>,
   updatedAt: option<RescriptRelay.any>,
 }
 
@@ -254,6 +278,8 @@ and input_ArticlesSetInput_nullable = {
   createdAt?: Js.Null.t<RescriptRelay.any>,
   id?: Js.Null.t<RescriptRelay.any>,
   intro?: Js.Null.t<string>,
+  slug?: Js.Null.t<string>,
+  title?: Js.Null.t<string>,
   updatedAt?: Js.Null.t<RescriptRelay.any>,
 }
 
@@ -542,6 +568,8 @@ external make_ArticlesBoolExp: (
   ~createdAt: input_TimestamptzComparisonExp=?,
   ~id: input_UuidComparisonExp=?,
   ~intro: input_StringComparisonExp=?,
+  ~slug: input_StringComparisonExp=?,
+  ~title: input_StringComparisonExp=?,
   ~updatedAt: input_TimestamptzComparisonExp=?,
   unit,
 ) => input_ArticlesBoolExp = ""
@@ -553,14 +581,16 @@ external make_ArticlesInsertInput: (
   ~createdAt: RescriptRelay.any=?,
   ~id: RescriptRelay.any=?,
   ~intro: string=?,
+  ~slug: string=?,
+  ~title: string=?,
   ~updatedAt: RescriptRelay.any=?,
   unit,
 ) => input_ArticlesInsertInput = ""
 
 @live @obj
 external make_ArticlesOnConflict: (
-  ~_constraint: [#articles_pkey],
-  ~updateColumns: array<[#authorId | #body | #createdAt | #id | #intro | #updatedAt]>,
+  ~_constraint: [#articles_pkey | #articles_slug_key],
+  ~updateColumns: array<[#authorId | #body | #createdAt | #id | #intro | #slug | #title | #updatedAt]>,
   ~where: input_ArticlesBoolExp=?,
   unit,
 ) => input_ArticlesOnConflict = ""
@@ -572,6 +602,8 @@ external make_ArticlesOrderBy: (
   ~createdAt: [#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]=?,
   ~id: [#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]=?,
   ~intro: [#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]=?,
+  ~slug: [#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]=?,
+  ~title: [#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]=?,
   ~updatedAt: [#ASC | #ASC_NULLS_FIRST | #ASC_NULLS_LAST | #DESC | #DESC_NULLS_FIRST | #DESC_NULLS_LAST]=?,
   unit,
 ) => input_ArticlesOrderBy = ""
@@ -588,6 +620,8 @@ external make_ArticlesSetInput: (
   ~createdAt: RescriptRelay.any=?,
   ~id: RescriptRelay.any=?,
   ~intro: string=?,
+  ~slug: string=?,
+  ~title: string=?,
   ~updatedAt: RescriptRelay.any=?,
   unit,
 ) => input_ArticlesSetInput = ""

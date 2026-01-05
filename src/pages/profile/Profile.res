@@ -61,22 +61,24 @@ let default = () => {
           {"Frontend performance enthusiast and Fine-Grained Reactivity super fan. Author of the SolidJS UI library and MarkoJS Core Team Member"->s}
         </Typography>
       </Stack>
-      <Stack gap=[xs(#one(8.0))] mt=[xs(14.0)] alignItems=[xs(#center)]>
-        <Grid spacing=[xs(4.0)]>
-          {fakeArticles->map((_, key) => {
-            <Box columns=[xs(#6)] key>
-              <ArticleCard
-                title={`Toward a Journalistic Ethic of Citation`}
-                description={`After The New York Times published its extensive report on the history of Haiti’s impoverishment at the hands.`}
-                authorName={`Jeff Jarvis`}
-                readingTime=3
-                published={`May 26, 2022`}
-              />
-            </Box>
-          })}
-        </Grid>
-        <Button label="Load more" />
-      </Stack>
+      // Temporarily disabled - needs to be updated to use fragments
+      // <Stack gap=[xs(#one(8.0))] mt=[xs(14.0)] alignItems=[xs(#center)]>
+      //   <Grid spacing=[xs(4.0)]>
+      //     {fakeArticles->map((_, key) => {
+      //       <Box columns=[xs(#6)] key>
+      //         <ArticleCard
+      //           title={`Toward a Journalistic Ethic of Citation`}
+      //           description={`After The New York Times published its extensive report on the history of Haiti's impoverishment at the hands.`}
+      //           authorName={`Jeff Jarvis`}
+      //           readingTime=3
+      //           published={`May 26, 2022`}
+      //         />
+      //       </Box>
+      //     })}
+      //   </Grid>
+      //   <Button label="Load more" />
+      // </Stack>
+      React.null
     </Box>
   </Box>
 }

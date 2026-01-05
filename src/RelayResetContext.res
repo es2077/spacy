@@ -1,8 +1,11 @@
-// Context for resetting the Relay environment
 let context = React.createContext(() => ())
-
 module Provider = {
-  let make = React.Context.provider(context)
+  let provider = React.Context.provider(context)
+
+  @react.component
+  let make = (~value, ~children) => {
+    React.createElement(provider, {value, children})
+  }
 }
 
 let useResetRelayEnvironment = () => {

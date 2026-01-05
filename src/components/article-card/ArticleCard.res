@@ -1,5 +1,15 @@
 open AncestorSpacy
 
+module ArticleCardFragment = %relay(`
+fragment ArticleCardFragment_article on Articles {
+  id
+  title
+  intro
+  slug
+  createdAt
+}
+`)
+
 module Styles = {
   let card = Emotion.css({
     "background": Theme.colors(#primary200)->Polished.transparentize(0.7, _),
@@ -22,7 +32,9 @@ module Metadata = {
 }
 
 @react.component
-let make = (~title, ~description, ~authorName, ~published, ~readingTime) => {
+let make = (~article) => {
+  let data = ArticleCardFragment.use(article)
+
   <Stack className=Styles.card gap=[xs(#one(3.0))]>
     <Stack gap=[xs(#one(1.0))]>
       <Typography
@@ -32,22 +44,22 @@ let make = (~title, ~description, ~authorName, ~published, ~readingTime) => {
         letterSpacing=[xs(-0.04->#em)]
         color=[xs(#primary700)]
         tag=#p>
-        {title->React.string}
+        {data.title->React.string}
       </Typography>
       <Typography
         m=[xs(0.0)] fontSize=[xs(16->#px)] fontWeight=[xs(#400)] color=[xs(#primary300)] tag=#p>
-        {description->React.string}
+        {data.intro->React.string}
       </Typography>
     </Stack>
     <Stack
       direction=[xs(#horizontal)] justifyContent=[xs(#"space-between")] alignItems=[xs(#center)]>
-      <ProfileName name=authorName size=#md />
+      <ProfileName name="Author" size=#md />
       <Stack direction=[xs(#horizontal)] gap=[xs(#one(1.0))]>
-        <Metadata> {`${readingTime->Belt.Int.toString}min`} </Metadata>
+        <Metadata> {`3min`} </Metadata>
         <Typography tag=#span fontWeight=[xs(#700)] fontSize=[xs(14->#px)] color=[xs(#primary200)]>
           {`//`->React.string}
         </Typography>
-        <Metadata> {published} </Metadata>
+        <Metadata> {(data.createdAt->Obj.magic: string)} </Metadata>
       </Stack>
     </Stack>
   </Stack>

@@ -1,10 +1,9 @@
 open AncestorSpacy
-open Render
 
 module Hero = Home_Hero
 
-module UserQuery = %relay(`
-query HomeUserQuery {
+module HomeQuery = %relay(`
+query HomeQuery {
   usersConnection(first: 1) {
     edges {
       node {
@@ -13,12 +12,18 @@ query HomeUserQuery {
       }
     }
   }
+  articlesConnection(first: 6, orderBy: [{createdAt: DESC}]) {
+    edges {
+      node {
+        ...ArticleCardFragment_article
+      }
+    }
+  }
 }
 `)
 
 let default = () => {
-  let fakeArticles = [1, 2, 3, 4, 5, 6]
-  let queryData = UserQuery.use(~variables=(), ())
+  let queryData = HomeQuery.use(~variables=(), ())
   let (isSignUpModalOpen, setIsSignUpModalOpen) = React.useState(() => false)
   let setIsSignUpModalOpen = value => setIsSignUpModalOpen(_ => value)
   let closeSignUpModal = () => setIsSignUpModalOpen(false)
@@ -45,17 +50,13 @@ let default = () => {
     </Hero>
     <Stack gap=[xs(#one(8.0))] mt=[xs(14.0)] alignItems=[xs(#center)]>
       <Grid spacing=[xs(4.0)]>
-        {fakeArticles->map((_, key) => {
-          <Box columns=[xs(#6)] key>
-            <ArticleCard
-              title={`Toward a Journalistic Ethic of Citation`}
-              description={`After The New York Times published its extensive report on the history of Haiti’s impoverishment at the hands.`}
-              authorName={`Jeff Jarvis`}
-              readingTime=3
-              published={`May 26, 2022`}
-            />
+        {queryData.articlesConnection.edges
+        ->Array.mapWithIndex((edge, idx) => {
+          <Box columns=[xs(#6)] key={idx->Belt.Int.toString}>
+            <ArticleCard article={edge.node.fragmentRefs} />
           </Box>
-        })}
+        })
+        ->React.array}
       </Grid>
       <Button label="Load more" />
     </Stack>
