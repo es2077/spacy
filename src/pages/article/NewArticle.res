@@ -47,6 +47,14 @@ let formSchema = {
   ])
 }
 
+// Helper function to create a URL-friendly slug from a title
+let createSlug = title => {
+  title
+  ->Js.String2.toLowerCase
+  ->Js.String2.replaceByRe(%re("/[^a-z0-9]+/g"), "-")
+  ->Js.String2.replaceByRe(%re("/^-+|-+$/g"), "")
+}
+
 let default = () => {
   let handleSubmit = (event: Form.onSubmitAPI) => {
     Js.log(event.state)
