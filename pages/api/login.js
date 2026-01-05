@@ -2,6 +2,14 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import cookie from "cookie";
 
+// Decode Hasura's node ID to get the database ID
+// Hasura format: [row_number, schema_name, table_name, primary_key]
+function decodeRelayId(relayId) {
+  const decoded = Buffer.from(relayId, "base64").toString("utf-8");
+  const parsed = JSON.parse(decoded);
+  return parsed[3]; // primary key is at index 3
+}
+
 export default async function (req, res) {
   try {
     const { password, email } = req.body.input.input;
@@ -41,6 +49,10 @@ export default async function (req, res) {
         error: "Invalid login",
       });
     } else {
+      console.log("User ID from GraphQL:", user.node.id);
+      const decodedUserId = decodeRelayId(user.node.id);
+      console.log("Decoded user ID:", decodedUserId);
+
       const token = jwt.sign(
         {
           email,
@@ -48,6 +60,7 @@ export default async function (req, res) {
             "x-hasura-allowed-roles": ["user"],
             "x-hasura-default-role": "user",
             "x-hasura-user-email": email,
+            "x-hasura-user-id": decodedUserId,
           },
         },
         process.env.HASURA_SECRET,

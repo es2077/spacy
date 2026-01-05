@@ -1,6 +1,14 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
+// Decode Hasura's node ID to get the database ID
+// Hasura format: [row_number, schema_name, table_name, primary_key]
+function decodeRelayId(relayId) {
+  const decoded = Buffer.from(relayId, "base64").toString("utf-8");
+  const parsed = JSON.parse(decoded);
+  return parsed[3]; // primary key is at index 3
+}
+
 export default async function (req, res) {
   try {
     const input = {
@@ -40,6 +48,7 @@ export default async function (req, res) {
           "x-hasura-allowed-roles": ["user"],
           "x-hasura-default-role": "user",
           "x-hasura-user-email": input.email,
+          "x-hasura-user-id": decodeRelayId(result.data.insertUsersOne.id),
         },
       },
       process.env.HASURA_SECRET,
