@@ -15,6 +15,18 @@ mutation NewArticleMutation($input: ArticlesInsertInput!) {
 }
 `)
 
+module Query = %relay(`
+query NewArticleQuery {
+  usersConnection(first: 1) {
+    edges {
+      node {
+        id
+      }
+    }
+  }
+}
+`)
+
 module FormFields = %lenses(
   type state = {
     title: string,
