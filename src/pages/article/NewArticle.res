@@ -55,7 +55,12 @@ let createSlug = title => {
   ->Js.String2.replaceByRe(%re("/^-+|-+$/g"), "")
 }
 
-let default = () => {
+@react.component
+let make = () => {
+  let (mutate, _) = CreateArticleMutation.use()
+  let queryData = Query.use(~variables=(), ())
+  let user = queryData.usersConnection.edges[0]
+
   let handleSubmit = (event: Form.onSubmitAPI) => {
     Js.log(event.state)
 
@@ -113,3 +118,5 @@ let default = () => {
     </Stack>
   </Stack>
 }
+
+let default = make
