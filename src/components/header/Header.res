@@ -1,5 +1,12 @@
 open AncestorSpacy
 
+module HeaderFragment = %relay(`
+fragment HeaderFragment_user on Users {
+  id
+  username
+}
+`)
+
 @react.component
 let make = () => {
   let (isSignInModalOpen, setIsSignInModalOpen) = React.useState(() => false)
