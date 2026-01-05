@@ -6,6 +6,15 @@
 
 open AncestorSpacy
 
+module CreateArticleMutation = %relay(`
+mutation NewArticleMutation($input: ArticlesInsertInput!) {
+  insertArticlesOne(object: $input) {
+    id
+    slug
+  }
+}
+`)
+
 module FormFields = %lenses(
   type state = {
     title: string,
