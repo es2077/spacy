@@ -25,7 +25,8 @@ let formSchema = {
 
 @react.component
 let make = (~closeSignInModal) => {
-  let (mutate, isMutating) = LoginMutation.use()
+  let (mutate, _) = LoginMutation.use()
+  let resetRelayEnvironment = RelayResetContext.useResetRelayEnvironment()
   let handleSubmit = (event: Form.onSubmitAPI) => {
     mutate(
       ~variables={
@@ -34,8 +35,10 @@ let make = (~closeSignInModal) => {
           password: event.state.values.password,
         },
       },
-      ~onCompleted=(response, mutationErrors) => {
+      ~onCompleted=(_, _) => {
         closeSignInModal()
+        // Reset the Relay environment to refetch with new auth token
+        resetRelayEnvironment()
       },
       (),
     )->RescriptRelay.Disposable.ignore
