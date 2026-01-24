@@ -11,6 +11,26 @@ module WithUser = {
   @react.component
   let make = (~user) => {
     let user = HeaderFragment.use(user)
+    let resetRelayEnvironment = RelayResetContext.useResetRelayEnvironment()
+
+    let handleLogout = _ => {
+      // Call logout API to clear the cookie
+      Fetch.fetchWithInit(
+        "/api/logout",
+        Fetch.RequestInit.make(~method_=Post, ~credentials=Include, ()),
+      )
+      |> Js.Promise.then_(_ => {
+        // After logout, reset the Relay environment to refetch without auth
+        resetRelayEnvironment()
+        Js.Promise.resolve()
+      })
+      |> Js.Promise.catch(_ => {
+        // Even if logout API fails, reset the environment
+        resetRelayEnvironment()
+        Js.Promise.resolve()
+      })
+      |> ignore
+    }
 
     <Stack
       width=[xs(100.0->#pct)]
@@ -18,7 +38,7 @@ module WithUser = {
       direction=[xs(#horizontal)]
       tag=#header>
       <Logo />
-      <Button label={`Logout`} />
+      <Button label={`Logout`} onClick={handleLogout} />
     </Stack>
   }
 }
