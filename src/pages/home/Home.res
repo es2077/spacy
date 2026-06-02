@@ -31,6 +31,26 @@ query HomeQuery {
 }
 `)
 
+module ArticleMeta = {
+  let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+  // Format an ISO timestamp (e.g. "2022-05-26T...") into "May 26, 2022".
+  let publishedAt = iso => {
+    let date = Js.Date.fromString(iso)
+    let month =
+      months->Array.get(Js.Date.getMonth(date)->Belt.Float.toInt)->Belt.Option.getWithDefault("")
+    let day = Js.Date.getDate(date)->Belt.Float.toInt->Belt.Int.toString
+    let year = Js.Date.getFullYear(date)->Belt.Float.toInt->Belt.Int.toString
+    `${month} ${day}, ${year}`
+  }
+
+  // Estimate reading time in minutes from the article body (~200 words/min).
+  let readingTime = body => {
+    let words = body->Js.String2.split(" ")->Belt.Array.length
+    Js.Math.max_int(1, words / 200)
+  }
+}
+
 let getServerSideProps = context => {
   context->RelaySSR.executeQueryEnvironment(environment => {
     Query.fetchPromised(~environment, ~variables=(), ())
