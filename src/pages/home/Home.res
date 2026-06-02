@@ -13,6 +13,21 @@ query HomeQuery {
       }
     }
   }
+  articlesConnection(orderBy: [{createdAt: DESC}]) {
+    edges {
+      node {
+        id
+        title
+        intro
+        slug
+        body
+        createdAt
+        user {
+          username
+        }
+      }
+    }
+  }
 }
 `)
 
