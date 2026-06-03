@@ -58,7 +58,6 @@ let getServerSideProps = context => {
 }
 
 let default = () => {
-  let fakeArticles = [1, 2, 3, 4, 5, 6]
   let queryData = Query.use(~variables=(), ())
   let (isSignUpModalOpen, setIsSignUpModalOpen) = React.useState(() => false)
   let setIsSignUpModalOpen = value => setIsSignUpModalOpen(_ => value)
@@ -85,15 +84,17 @@ let default = () => {
     </Hero>
     <Stack gap=[xs(#one(8.0))] mt=[xs(14.0)] alignItems=[xs(#center)]>
       <Grid spacing=[xs(4.0)]>
-        {fakeArticles->map((_, key) => {
+        {queryData.articlesConnection.edges->map(({node: article}, key) => {
           <Box columns=[xs(#6)] key>
-            <ArticleCard
-              title={`Toward a Journalistic Ethic of Citation`}
-              description={`After The New York Times published its extensive report on the history of Haiti’s impoverishment at the hands.`}
-              authorName={`Jeff Jarvis`}
-              readingTime=3
-              published={`May 26, 2022`}
-            />
+            <Next.Link href={`/article/${article.slug}`}>
+              <ArticleCard
+                title={article.title}
+                description={article.intro}
+                authorName={article.user.username}
+                readingTime={ArticleMeta.readingTime(article.body)}
+                published={ArticleMeta.publishedAt(article.createdAt)}
+              />
+            </Next.Link>
           </Box>
         })}
       </Grid>
