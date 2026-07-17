@@ -22,7 +22,12 @@ type Articles implements Node {
   createdAt: timestamptz!
   id: ID!
   intro: String!
+  slug: String!
+  title: String!
   updatedAt: timestamptz!
+
+  """An object relationship"""
+  user: Users!
 }
 
 """
@@ -37,7 +42,10 @@ input ArticlesBoolExp {
   createdAt: TimestamptzComparisonExp
   id: UuidComparisonExp
   intro: StringComparisonExp
+  slug: StringComparisonExp
+  title: StringComparisonExp
   updatedAt: TimestamptzComparisonExp
+  user: UsersBoolExp
 }
 
 """
@@ -56,6 +64,11 @@ enum ArticlesConstraint {
   unique or primary key constraint on columns "id"
   """
   articles_pkey
+
+  """
+  unique or primary key constraint on columns "slug"
+  """
+  articles_slug_key
 }
 
 type ArticlesEdge {
@@ -72,7 +85,10 @@ input ArticlesInsertInput {
   createdAt: timestamptz
   id: uuid
   intro: String
+  slug: String
+  title: String
   updatedAt: timestamptz
+  user: UsersObjRelInsertInput
 }
 
 """
@@ -102,7 +118,10 @@ input ArticlesOrderBy {
   createdAt: OrderBy
   id: OrderBy
   intro: OrderBy
+  slug: OrderBy
+  title: OrderBy
   updatedAt: OrderBy
+  user: UsersOrderBy
 }
 
 """primary key columns input for table: articles"""
@@ -130,6 +149,12 @@ enum ArticlesSelectColumn {
   intro
 
   """column name"""
+  slug
+
+  """column name"""
+  title
+
+  """column name"""
   updatedAt
 }
 
@@ -142,6 +167,8 @@ input ArticlesSetInput {
   createdAt: timestamptz
   id: uuid
   intro: String
+  slug: String
+  title: String
   updatedAt: timestamptz
 }
 
@@ -163,6 +190,12 @@ enum ArticlesUpdateColumn {
 
   """column name"""
   intro
+
+  """column name"""
+  slug
+
+  """column name"""
+  title
 
   """column name"""
   updatedAt
@@ -608,6 +641,16 @@ type UsersMutationResponse {
 
   """data from the rows affected by the mutation"""
   returning: [Users!]!
+}
+
+"""
+input type for inserting object relation for remote table "users"
+"""
+input UsersObjRelInsertInput {
+  data: UsersInsertInput!
+
+  """upsert condition"""
+  onConflict: UsersOnConflict
 }
 
 """

@@ -33,6 +33,8 @@ export default async function (req, res) {
       });
     }
 
+    // Decode Relay global ID (["public", "users", uuid]) to get the raw UUID
+    const userId = JSON.parse(Buffer.from(result.data.insertUsersOne.id, "base64").toString())[3];
     const token = jwt.sign(
       {
         email: req.body.input.input.email,
@@ -40,6 +42,7 @@ export default async function (req, res) {
           "x-hasura-allowed-roles": ["user"],
           "x-hasura-default-role": "user",
           "x-hasura-user-email": input.email,
+          "x-hasura-user-id": userId,
         },
       },
       process.env.HASURA_SECRET,

@@ -1,28 +1,52 @@
 table:
   name: articles
   schema: public
+object_relationships:
+  - name: user
+    using:
+      foreign_key_constraint_on: author_id
 insert_permissions:
   - role: user
     permission:
       check: {}
+      set:
+        author_id: x-hasura-User-Id
       columns:
-        - body
-        - intro
-        - created_at
-        - updated_at
         - author_id
+        - body
+        - created_at
         - id
+        - intro
+        - slug
+        - title
+        - updated_at
     comment: ""
 select_permissions:
-  - role: user
+  - role: anonymous
     permission:
       columns:
         - body
         - intro
+        - slug
+        - title
         - created_at
         - updated_at
         - author_id
         - id
+      filter: {}
+      limit: 0
+    comment: ""
+  - role: user
+    permission:
+      columns:
+        - author_id
+        - body
+        - created_at
+        - id
+        - intro
+        - slug
+        - title
+        - updated_at
       filter: {}
     comment: ""
 update_permissions:
@@ -32,6 +56,7 @@ update_permissions:
         - body
         - created_at
         - intro
+        - title
         - updated_at
       filter: {}
       check: null
