@@ -13,7 +13,19 @@ query HomeQuery {
       }
     }
   }
-  articlesConnection(orderBy: [{createdAt: DESC}]) {
+  ...HomeArticles_query
+}
+`)
+
+module ArticlesFragment = %relay(`
+fragment HomeArticles_query on query_root
+@argumentDefinitions(
+  count: {type: "Int", defaultValue: 6}
+  cursor: {type: "String"}
+)
+@refetchable(queryName: "HomeArticlesPaginationQuery") {
+  articlesConnection(first: $count, after: $cursor, orderBy: [{createdAt: DESC}])
+  @connection(key: "HomeArticles_articlesConnection") {
     edges {
       node {
         id
@@ -59,6 +71,7 @@ let getServerSideProps = context => {
 
 let default = () => {
   let queryData = Query.use(~variables=(), ())
+  let articles = ArticlesFragment.usePagination(queryData.fragmentRefs)
   let (isSignUpModalOpen, setIsSignUpModalOpen) = React.useState(() => false)
   let setIsSignUpModalOpen = value => setIsSignUpModalOpen(_ => value)
   let closeSignUpModal = () => setIsSignUpModalOpen(false)
@@ -84,7 +97,7 @@ let default = () => {
     </Hero>
     <Stack gap=[xs(#one(8.0))] mt=[xs(14.0)] alignItems=[xs(#center)]>
       <Grid spacing=[xs(4.0)]>
-        {queryData.articlesConnection.edges->map(({node: article}, key) => {
+        {articles.data.articlesConnection.edges->map(({node: article}, key) => {
           <Box columns=[xs(#6)] key>
             <Next.Link href={`/article/${article.slug}`}>
               <ArticleCard
