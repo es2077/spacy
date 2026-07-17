@@ -111,7 +111,13 @@ let default = () => {
           </Box>
         })}
       </Grid>
-      <Button label="Load more" />
+      {articles.hasNext
+        ? <Button
+            label={articles.isLoadingNext ? "Loading..." : "Load more"}
+            disabled={articles.isLoadingNext}
+            onClick={_ => articles.loadNext(~count=6, ())->ignore}
+          />
+        : React.null}
     </Stack>
   </Box>
 }
