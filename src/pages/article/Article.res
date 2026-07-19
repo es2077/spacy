@@ -96,7 +96,7 @@ let default = () => {
           {article.intro->React.string}
         </Typography>
       </Stack>
-      <Box className=Styles.container dangerouslySetInnerHTML={{"__html": article.body}} />
+      <Box className=Styles.container dangerouslySetInnerHTML={{"__html": Marked.parse(article.body)}} />
     </Stack>
   }
 }
