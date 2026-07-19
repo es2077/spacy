@@ -31,11 +31,12 @@ mutation UpdateProfileModalMutation($set: UsersSetInput!) {
 }
 `)
 
+// Password isn't edited here — changing it needs the hashing API, not a direct
+// column update — so the profile form only covers username, email and bio.
 module FormFields = %lenses(
   type state = {
     username: string,
     email: string,
-    password: string,
     bio: string,
   }
 )
@@ -49,7 +50,6 @@ let formSchema = {
     nonEmpty(~error="Username is required", Username),
     nonEmpty(~error="Bio is required", Bio),
     email(~error="Invalid email", Email),
-    string(~min=8, Password),
   ])
 }
 
@@ -58,13 +58,32 @@ let formSchema = {
 module Content = {
   @react.component
   let make = (~username, ~email, ~bio) => {
+    let (mutate, _) = UpdateProfileMutation.use()
+
     let handleSubmit = (event: Form.onSubmitAPI) => {
-      Js.log(event.state)
+      // Password is left out — it must be hashed through the API, not set here.
+      mutate(
+        ~variables={
+          set: {
+            username: Some(event.state.values.username),
+            bio: Some(event.state.values.bio),
+            email: Some(event.state.values.email),
+            // Left unchanged — password must be hashed via the API, not set here.
+            password: None,
+            avatarUrl: None,
+            id: None,
+            createdAt: None,
+            updatedAt: None,
+          },
+        },
+        ~onCompleted=(_response, _errors) => (),
+        (),
+      )->RescriptRelay.Disposable.ignore
 
       None
     }
     let form = Form.use(
-      ~initialState={username, email, password: "", bio},
+      ~initialState={username, email, bio},
       ~onSubmit=handleSubmit,
       ~validationStrategy=OnDemand,
       ~schema=formSchema,
@@ -107,13 +126,6 @@ module Content = {
             onChange={handleChange(Email)}
             value={form.values.email}
             error=?{form.getFieldError(Field(Email))}
-          />
-          <Input
-            type_="password"
-            placeholder="Password"
-            onChange={handleChange(Password)}
-            value={form.values.password}
-            error=?{form.getFieldError(Field(Password))}
           />
           <Button label="Submit" onClick={handleSubmitClick} />
         </Stack>
