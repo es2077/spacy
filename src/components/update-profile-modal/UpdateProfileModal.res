@@ -16,6 +16,21 @@ query UpdateProfileModalQuery {
 }
 `)
 
+// where: {} matches every row, but Hasura's update permission scopes it to the
+// session user (filter X-Hasura-User-Email) — so this only ever updates "me".
+module UpdateProfileMutation = %relay(`
+mutation UpdateProfileModalMutation($set: UsersSetInput!) {
+  updateUsers(where: {}, _set: $set) {
+    affectedRows
+    returning {
+      id
+      username
+      bio
+    }
+  }
+}
+`)
+
 module FormFields = %lenses(
   type state = {
     username: string,
