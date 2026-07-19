@@ -90,7 +90,7 @@ let default = () => {
 
   switch queryData.articlesConnection.edges->Belt.Array.get(0) {
   | None => <Box pt=[xs(14.0)]> {"Article not found"->React.string} </Box>
-  | Some(_) =>
+  | Some({node: article}) =>
     <Stack pt=[xs(14.0)] maxW=[xs(784->#px)] width=[xs(100.0->#pct)] gap=[xs(#one(2.0))]>
       <Stack
         direction=[xs(#horizontal)]
@@ -99,12 +99,12 @@ let default = () => {
         divider={<Base tag=#span fontSize=[xs(2.0->#rem)] color=[xs(#primary200)]>
           {"//"->React.string}
         </Base>}>
-        <ProfileName name="Jeff Jarvis" />
+        <ProfileName name={article.user.username} />
         <Typography tag=#span fontSize=[xs(16->#px)] fontWeight=[xs(#700)] color=[xs(#primary700)]>
-          {"3min"->React.string}
+          {ArticleMeta.readingTime(article.body)->React.string}
         </Typography>
         <Typography tag=#span fontSize=[xs(16->#px)] fontWeight=[xs(#700)] color=[xs(#primary700)]>
-          {"Mar 23, 2022"->React.string}
+          {ArticleMeta.publishedAt(article.createdAt)->React.string}
         </Typography>
       </Stack>
       <Stack gap=[xs(#one(2.0))] mb=[xs(6.0)]>
@@ -115,7 +115,7 @@ let default = () => {
           letterSpacing=[xs(-0.04->#em)]
           lineHeight=[xs(4.6->#rem)]
           color=[xs(#primary700)]>
-          {"The Cost of Consistency in UI Frameworks"->React.string}
+          {article.title->React.string}
         </Typography>
         <Typography
           m=[xs(0.0)]
@@ -123,7 +123,7 @@ let default = () => {
           color=[xs(#primary300)]
           fontSize=[xs(1.8->#rem)]
           lineHeight=[xs(2.8->#rem)]>
-          {"Sometimes there are problems that have no universally good solutions. There is some tradeoff to be made. Some perspectives that can't be protected. Sometimes it isn't even clear if any of the options are preferable to the others."->React.string}
+          {article.intro->React.string}
         </Typography>
       </Stack>
       <Box className=Styles.container dangerouslySetInnerHTML={{"__html": content}} />
