@@ -19,13 +19,63 @@ query ProfileQuery {
 }
 `)
 
+// Articles authored by a user. Users has no articles relationship, so this
+// child component queries them by username (derived from the session user).
+module ProfileArticles = {
+  module Query = %relay(`
+  query ProfileArticlesQuery($username: String!) {
+    articlesConnection(
+      where: {user: {username: {_eq: $username}}}
+      orderBy: [{createdAt: DESC}]
+    ) {
+      edges {
+        node {
+          id
+          title
+          intro
+          slug
+          body
+          createdAt
+          user {
+            username
+          }
+        }
+      }
+    }
+  }
+  `)
+
+  @react.component
+  let make = (~username) => {
+    let data = Query.use(~variables={username: username}, ())
+
+    <Stack gap=[xs(#one(8.0))] mt=[xs(14.0)] alignItems=[xs(#center)]>
+      <Grid spacing=[xs(4.0)]>
+        {data.articlesConnection.edges->map(({node: article}, key) => {
+          <Box columns=[xs(#6)] key>
+            <Next.Link href={`/article/${article.slug}`}>
+              <ArticleCard
+                title={article.title}
+                description={article.intro}
+                authorName={article.user.username}
+                readingTime={ArticleMeta.readingTime(article.body)}
+                published={ArticleMeta.publishedAt(article.createdAt)}
+              />
+            </Next.Link>
+          </Box>
+        })}
+      </Grid>
+      <Button label="Load more" />
+    </Stack>
+  }
+}
+
 let default = () => {
   let queryData = Query.use(~variables=(), ())
 
   switch queryData.usersConnection.edges->Belt.Array.get(0) {
   | None => <Box pt=[xs(14.0)]> {"Profile not found"->React.string} </Box>
   | Some({node: me}) =>
-    let fakeArticles = [1, 2, 3, 4, 5, 6]
     <Box mt=[xs(14.0)] display=[xs(#flex)] justifyContent=[xs(#center)] width=[xs(100.0->#pct)]>
       <Box maxW=[xs(992->#px)] width=[xs(100.0->#pct)] position=[xs(#relative)]>
         <Stack
@@ -82,22 +132,7 @@ let default = () => {
             {me.bio->s}
           </Typography>
         </Stack>
-        <Stack gap=[xs(#one(8.0))] mt=[xs(14.0)] alignItems=[xs(#center)]>
-          <Grid spacing=[xs(4.0)]>
-            {fakeArticles->map((_, key) => {
-              <Box columns=[xs(#6)] key>
-                <ArticleCard
-                  title={`Toward a Journalistic Ethic of Citation`}
-                  description={`After The New York Times published its extensive report on the history of Haiti’s impoverishment at the hands.`}
-                  authorName={`Jeff Jarvis`}
-                  readingTime=3
-                  published={`May 26, 2022`}
-                />
-              </Box>
-            })}
-          </Grid>
-          <Button label="Load more" />
-        </Stack>
+        <ProfileArticles username={me.username} />
       </Box>
     </Box>
   }
