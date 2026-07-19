@@ -31,6 +31,53 @@ type Articles implements Node {
 }
 
 """
+aggregated selection of "articles"
+"""
+type ArticlesAggregate {
+  aggregate: ArticlesAggregateFields
+  nodes: [Articles!]!
+}
+
+input ArticlesAggregateBoolExp {
+  count: articlesAggregateBoolExpCount
+}
+
+input articlesAggregateBoolExpCount {
+  arguments: [ArticlesSelectColumn!]
+  distinct: Boolean
+  filter: ArticlesBoolExp
+  predicate: IntComparisonExp!
+}
+
+"""
+aggregate fields of "articles"
+"""
+type ArticlesAggregateFields {
+  count(columns: [ArticlesSelectColumn!], distinct: Boolean): Int!
+  max: ArticlesMaxFields
+  min: ArticlesMinFields
+}
+
+"""
+order by aggregate values of table "articles"
+"""
+input ArticlesAggregateOrderBy {
+  count: OrderBy
+  max: ArticlesMaxOrderBy
+  min: ArticlesMinOrderBy
+}
+
+"""
+input type for inserting array relation for remote table "articles"
+"""
+input ArticlesArrRelInsertInput {
+  data: [ArticlesInsertInput!]!
+
+  """upsert condition"""
+  onConflict: ArticlesOnConflict
+}
+
+"""
 Boolean expression to filter rows from the table "articles". All fields are combined with a logical 'AND'.
 """
 input ArticlesBoolExp {
@@ -89,6 +136,58 @@ input ArticlesInsertInput {
   title: String
   updatedAt: timestamptz
   user: UsersObjRelInsertInput
+}
+
+"""aggregate max on columns"""
+type ArticlesMaxFields {
+  authorId: uuid
+  body: String
+  createdAt: timestamptz
+  id: uuid
+  intro: String
+  slug: String
+  title: String
+  updatedAt: timestamptz
+}
+
+"""
+order by max() on columns of table "articles"
+"""
+input ArticlesMaxOrderBy {
+  authorId: OrderBy
+  body: OrderBy
+  createdAt: OrderBy
+  id: OrderBy
+  intro: OrderBy
+  slug: OrderBy
+  title: OrderBy
+  updatedAt: OrderBy
+}
+
+"""aggregate min on columns"""
+type ArticlesMinFields {
+  authorId: uuid
+  body: String
+  createdAt: timestamptz
+  id: uuid
+  intro: String
+  slug: String
+  title: String
+  updatedAt: timestamptz
+}
+
+"""
+order by min() on columns of table "articles"
+"""
+input ArticlesMinOrderBy {
+  authorId: OrderBy
+  body: OrderBy
+  createdAt: OrderBy
+  id: OrderBy
+  intro: OrderBy
+  slug: OrderBy
+  title: OrderBy
+  updatedAt: OrderBy
 }
 
 """
@@ -207,6 +306,21 @@ input ArticlesUpdates {
 
   """filter the rows which have to be updated"""
   where: ArticlesBoolExp!
+}
+
+"""
+Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
+"""
+input IntComparisonExp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _isNull: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
 }
 
 input LoginInput {
@@ -558,6 +672,58 @@ input TimestamptzComparisonExp {
 columns and relationships of "users"
 """
 type Users implements Node {
+  """An array relationship"""
+  articles(
+    """distinct select on columns"""
+    distinctOn: [ArticlesSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [ArticlesOrderBy!]
+
+    """filter the rows returned"""
+    where: ArticlesBoolExp
+  ): [Articles!]!
+
+  """An aggregate relationship"""
+  articlesAggregate(
+    """distinct select on columns"""
+    distinctOn: [ArticlesSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [ArticlesOrderBy!]
+
+    """filter the rows returned"""
+    where: ArticlesBoolExp
+  ): ArticlesAggregate!
+
+  """An array relationship connection"""
+  articles_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinctOn: [ArticlesSelectColumn!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [ArticlesOrderBy!]
+
+    """filter the rows returned"""
+    where: ArticlesBoolExp
+  ): ArticlesConnection!
   avatarUrl: String
   bio: String!
   createdAt: timestamptz!
@@ -575,6 +741,8 @@ input UsersBoolExp {
   _and: [UsersBoolExp!]
   _not: UsersBoolExp
   _or: [UsersBoolExp!]
+  articles: ArticlesBoolExp
+  articlesAggregate: ArticlesAggregateBoolExp
   avatarUrl: StringComparisonExp
   bio: StringComparisonExp
   createdAt: TimestamptzComparisonExp
@@ -622,6 +790,7 @@ type UsersEdge {
 input type for inserting data into table "users"
 """
 input UsersInsertInput {
+  articles: ArticlesArrRelInsertInput
   avatarUrl: String
   bio: String
   createdAt: timestamptz
@@ -664,6 +833,7 @@ input UsersOnConflict {
 
 """Ordering options when selecting data from "users"."""
 input UsersOrderBy {
+  articlesAggregate: ArticlesAggregateOrderBy
   avatarUrl: OrderBy
   bio: OrderBy
   createdAt: OrderBy
