@@ -6,6 +6,14 @@ configuration:
   custom_column_names: {}
   custom_root_fields:
     update_by_pk: update_profile
+array_relationships:
+  - name: articles
+    using:
+      foreign_key_constraint_on:
+        column: author_id
+        table:
+          name: articles
+          schema: public
 select_permissions:
   - role: anonymous
     permission:
