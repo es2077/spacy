@@ -13,8 +13,55 @@ query HomeQuery {
       }
     }
   }
+  ...HomeArticles_query
 }
 `)
+
+module ArticlesFragment = %relay(`
+fragment HomeArticles_query on query_root
+@argumentDefinitions(
+  count: {type: "Int", defaultValue: 6}
+  cursor: {type: "String"}
+)
+@refetchable(queryName: "HomeArticlesPaginationQuery") {
+  articlesConnection(first: $count, after: $cursor, orderBy: [{createdAt: DESC}])
+  @connection(key: "HomeArticles_articlesConnection") {
+    edges {
+      node {
+        id
+        title
+        intro
+        slug
+        body
+        createdAt
+        user {
+          username
+        }
+      }
+    }
+  }
+}
+`)
+
+module ArticleMeta = {
+  let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+  // Format an ISO timestamp (e.g. "2022-05-26T...") into "May 26, 2022".
+  let publishedAt = iso => {
+    let date = Js.Date.fromString(iso)
+    let month =
+      months->Array.get(Js.Date.getMonth(date)->Belt.Float.toInt)->Belt.Option.getWithDefault("")
+    let day = Js.Date.getDate(date)->Belt.Float.toInt->Belt.Int.toString
+    let year = Js.Date.getFullYear(date)->Belt.Float.toInt->Belt.Int.toString
+    `${month} ${day}, ${year}`
+  }
+
+  // Estimate reading time in minutes from the article body (~200 words/min).
+  let readingTime = body => {
+    let words = body->Js.String2.split(" ")->Belt.Array.length
+    Js.Math.max_int(1, words / 200)
+  }
+}
 
 let getServerSideProps = context => {
   context->RelaySSR.executeQueryEnvironment(environment => {
@@ -23,8 +70,8 @@ let getServerSideProps = context => {
 }
 
 let default = () => {
-  let fakeArticles = [1, 2, 3, 4, 5, 6]
   let queryData = Query.use(~variables=(), ())
+  let articles = ArticlesFragment.usePagination(queryData.fragmentRefs)
   let (isSignUpModalOpen, setIsSignUpModalOpen) = React.useState(() => false)
   let setIsSignUpModalOpen = value => setIsSignUpModalOpen(_ => value)
   let closeSignUpModal = () => setIsSignUpModalOpen(false)
@@ -50,19 +97,27 @@ let default = () => {
     </Hero>
     <Stack gap=[xs(#one(8.0))] mt=[xs(14.0)] alignItems=[xs(#center)]>
       <Grid spacing=[xs(4.0)]>
-        {fakeArticles->map((_, key) => {
+        {articles.data.articlesConnection.edges->map(({node: article}, key) => {
           <Box columns=[xs(#6)] key>
-            <ArticleCard
-              title={`Toward a Journalistic Ethic of Citation`}
-              description={`After The New York Times published its extensive report on the history of Haiti’s impoverishment at the hands.`}
-              authorName={`Jeff Jarvis`}
-              readingTime=3
-              published={`May 26, 2022`}
-            />
+            <Next.Link href={`/article/${article.slug}`}>
+              <ArticleCard
+                title={article.title}
+                description={article.intro}
+                authorName={article.user.username}
+                readingTime={ArticleMeta.readingTime(article.body)}
+                published={ArticleMeta.publishedAt(article.createdAt)}
+              />
+            </Next.Link>
           </Box>
         })}
       </Grid>
-      <Button label="Load more" />
+      {articles.hasNext
+        ? <Button
+            label={articles.isLoadingNext ? "Loading..." : "Load more"}
+            disabled={articles.isLoadingNext}
+            onClick={_ => articles.loadNext(~count=6, ())->ignore}
+          />
+        : React.null}
     </Stack>
   </Box>
 }
