@@ -1,6 +1,24 @@
 open AncestorSpacy
 open Render
 
+// The profile shows the current logged-in user. Hasura scopes usersConnection
+// to the session user (select permission filters by X-Hasura-User-Email), so
+// `first: 1` returns "me" — no username needed from the route.
+module Query = %relay(`
+query ProfileQuery {
+  usersConnection(first: 1) {
+    edges {
+      node {
+        id
+        username
+        bio
+        avatarUrl
+      }
+    }
+  }
+}
+`)
+
 let name = "Jeff Jarvis"
 
 let default = () => {
