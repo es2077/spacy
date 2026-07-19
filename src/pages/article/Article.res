@@ -1,5 +1,24 @@
 open AncestorSpacy
 
+module Query = %relay(`
+query ArticleQuery($slug: String!) {
+  articlesConnection(where: {slug: {_eq: $slug}}, first: 1) {
+    edges {
+      node {
+        id
+        title
+        intro
+        body
+        createdAt
+        user {
+          username
+        }
+      }
+    }
+  }
+}
+`)
+
 let content = `<h2 id="batched-consistency">Batched Consistency</h2>
 <p>Let&#39;s start with <a href="https://react.dev">React</a>. When you update state, it holds off committing those changes until the next render cycle. The benefit here is that React is always consistent. count and doubleCount and the DOM are always observed to be in sync.</p>
 <p>Consistency in frameworks is important. It builds trust. You know when you interact with the view what you see is what you get. If the user sees something but the state of the app is different, that can lead to obscure bugs because user-driven actions can cause unexpected results while appearing intentional. Sometimes to serious consequences (financial or otherwise).</p>
