@@ -1,13 +1,15 @@
-// A media player's UI from booleans. Nothing stops isPlaying AND isPaused
-// being true at the same time — a state that makes no sense.
+// One value, one state — a player can't be playing AND paused at once.
+type playback =
+  | Idle
+  | Playing(int)
+  | Paused(int)
+  | Ended
+
 @react.component
-let make = (~isPlaying: bool, ~isPaused: bool, ~atEnd: bool) =>
-  if atEnd {
-    <p> {"Ended"->React.string} </p>
-  } else if isPlaying {
-    <p> {"Playing"->React.string} </p>
-  } else if isPaused {
-    <p> {"Paused"->React.string} </p>
-  } else {
-    <p> {"Idle"->React.string} </p>
+let make = (~playback: playback) =>
+  switch playback {
+  | Idle => <p> {"Idle"->React.string} </p>
+  | Playing(_) => <p> {"Playing"->React.string} </p>
+  | Paused(_) => <p> {"Paused"->React.string} </p>
+  | Ended => <p> {"Ended"->React.string} </p>
   }
