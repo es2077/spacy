@@ -13,4 +13,5 @@ let make = (~playback: playback) =>
   | Playing(_) => <p> {"Playing"->React.string} </p>
   | Paused(_) => <p> {"Paused"->React.string} </p>
   | Ended => <p> {"Ended"->React.string} </p>
+  | Buffering => <p> {"Buffering…"->React.string} </p>
   }
