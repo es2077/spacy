@@ -59,7 +59,7 @@ let createSlug = title => {
 let make = () => {
   let (mutate, _) = CreateArticleMutation.use()
   let queryData = Query.use(~variables=(), ())
-  let user = queryData.usersConnection.edges[0]
+  let _user = queryData.usersConnection.edges[0]
 
   let handleSubmit = (event: Form.onSubmitAPI) => {
     let slug = createSlug(event.state.values.title)

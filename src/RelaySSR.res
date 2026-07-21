@@ -4,7 +4,7 @@ let executeQueryEnvironment = (context: NextContext.t, transaction) => {
   let authToken = context.req.cookies->Js.Dict.get("spacy_auth")
   let environment = RelayEnv.make(~authToken?, ())
 
-  transaction(environment)->Promise.thenResolve(res => {
+  transaction(environment)->Promise.thenResolve(_res => {
     //Js.log(res)
     let sources = environment->Environment.getStore->Store.getSource->RecordSource.toJSON
 

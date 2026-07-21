@@ -10,7 +10,7 @@ fragment HeaderFragment_user on Users {
 module WithUser = {
   @react.component
   let make = (~user) => {
-    let user = HeaderFragment.use(user)
+    let _user = HeaderFragment.use(user)
     let resetRelayEnvironment = RelayResetContext.useResetRelayEnvironment()
 
     let handleLogout = _ => {
