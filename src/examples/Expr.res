@@ -24,3 +24,6 @@ let describe = (e: expr<int>) =>
   | Int(_) => "a literal int"
   | Add(_, _) => "a sum"
   }
+
+// The very same nonsense that compiled with the plain variant now fails:
+let nonsense = Add(Bool(true), Int(1))
