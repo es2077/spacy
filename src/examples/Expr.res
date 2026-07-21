@@ -5,9 +5,9 @@ type rec expr<_> =
   | Bool(bool): expr<bool>
   | Add(expr<int>, expr<int>): expr<int>
 
-// But plain inference can't type this eval: each branch returns a
-// different type, and Hindley-Milner unifies them all into one.
-let rec eval = e =>
+// The `type a.` locally abstract type lets each branch refine `a`
+// independently — exactly what inference alone could not do.
+let rec eval: type a. expr<a> => a = e =>
   switch e {
   | Int(n) => n
   | Bool(b) => b
