@@ -13,3 +13,14 @@ let rec eval: type a. expr<a> => a = e =>
   | Bool(b) => b
   | Add(a, b) => eval(a) + eval(b)
   }
+
+// eval returns the *refined* type — a plain int here, no unwrapping.
+let three: int = eval(Add(Int(1), Int(2)))
+
+// On expr<int>, the Bool case is type-impossible, so we can leave it out
+// with no exhaustiveness error — the compiler knows it can't occur.
+let describe = (e: expr<int>) =>
+  switch e {
+  | Int(_) => "a literal int"
+  | Add(_, _) => "a sum"
+  }
