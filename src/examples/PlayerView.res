@@ -4,6 +4,7 @@ type playback =
   | Playing(int)
   | Paused(int)
   | Ended
+  | Buffering
 
 @react.component
 let make = (~playback: playback) =>
