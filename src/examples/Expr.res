@@ -25,5 +25,6 @@ let describe = (e: expr<int>) =>
   | Add(_, _) => "a sum"
   }
 
-// The very same nonsense that compiled with the plain variant now fails:
-let nonsense = Add(Bool(true), Int(1))
+// Fixed: only int expressions go into Add, and eval gives us an int.
+let valid = Add(Int(40), Add(Int(1), Int(1)))
+let result: int = eval(valid)
