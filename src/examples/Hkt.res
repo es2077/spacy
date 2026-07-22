@@ -24,3 +24,16 @@ type functorOps<'f> = {map: 'a 'b. ('a => 'b, app<'f, 'a>) => app<'f, 'b>}
 let optionFunctor: functorOps<optionBrand> = {
   map: (f, fa) => injOption(Belt.Option.map(prjOption(fa), f)),
 }
+
+// A second container behind the SAME interface:
+type arrayBrand
+external injArray: array<'a> => app<arrayBrand, 'a> = "%identity"
+external prjArray: app<arrayBrand, 'a> => array<'a> = "%identity"
+
+let arrayFunctor: functorOps<arrayBrand> = {
+  map: (f, fa) => injArray(Belt.Array.map(prjArray(fa), f)),
+}
+
+// ONE generic function, working over ANY branded container F:
+let toStrings = (fops: functorOps<'f>, fa: app<'f, int>): app<'f, string> =>
+  fops.map(Belt.Int.toString, fa)
