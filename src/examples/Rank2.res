@@ -8,3 +8,6 @@ type poly = {run: 'a. 'a => 'a}
 let probe = (p: poly) => (p.run(42), p.run("hello"))
 
 let identity = {run: x => x}
+
+// A function that only works on strings can't fill a ∀ 'a slot:
+let bad = {run: s => s ++ "!"}
