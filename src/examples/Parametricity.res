@@ -8,5 +8,6 @@ let id: 'a. 'a => 'a = x => x
 let first: 'a. ('a, 'a) => 'a = (x, _y) => x
 let second: 'a. ('a, 'a) => 'a = (_x, y) => y
 
-// Can we write array<'a> => array<'a> that bumps each element by one?
-let mapPlus1: 'a. array<'a> => array<'a> = xs => xs->Belt.Array.map(x => x + 1)
+// You can't even look at an 'a. The honest array<'a> => array<'a> can only
+// rearrange what's already there.
+let rev: 'a. array<'a> => array<'a> = xs => Belt.Array.reverse(xs)
